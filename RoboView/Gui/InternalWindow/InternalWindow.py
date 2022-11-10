@@ -60,7 +60,7 @@ class InternalWindow():
         new_y = y - y_delta
         if(new_x > 0 and new_x < self._frame.winfo_width()):
             x = x - x_delta
-        if(new_y > 0)    
+        if(new_y > 0): 
             y = y - y_delta
         self._frame.place(x = x, y = y)
 
