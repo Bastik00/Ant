@@ -1,5 +1,6 @@
 
-import tkinter
+import tkinter as tk
+import tkinter.ttk as ttk
 
 from AntView.Devices.LegSensors.LegSensorsControlView import LegSensorsControlView
 
@@ -15,17 +16,13 @@ from RoboView.Robot.Viewer.RobotViewer import RobotViewer
 
 class AntView(RobotViewer):
 
-
-
 	def __init__(self,ant):
 		super().__init__(ant)
 		pass
 
-
-
 	def make_data_menu(self, menue_bar):
 
-		menue = tkinter.Menu(menue_bar)
+		menue = tk.Menu(menue_bar)
 		menue.add_command(label="Data Hub", command=self.show_data_hub_data)
 		menue.add_command(label="Head Sensors", command=self.show_head_sensors_data)
 		menue.add_command(label="Leg Sensors", command=self.show_leg_sensors_data)
@@ -34,19 +31,14 @@ class AntView(RobotViewer):
 		
 
 	def make_control_menu(self, menue_bar):
-		menue = tkinter.Menu(menue_bar)
+		menue = tk.Menu(menue_bar)
 		menue.add_command(label="Leg controller", command=self.show_leg_controller_control)
 		menue.add_command(label="Leg sensors", command=self.show_leg_sensors_control)
-
-
 		menue_bar.add_cascade(label="Control View", menu=menue)
 
 
-
-
-
 	def make_setup_menu(self, menue_bar):
-		menue = tkinter.Menu(menue_bar)
+		menue = tk.Menu(menue_bar)
 		menue.add_command(label="Leg Sensors", command=self.show_leg_sensors_setup)
 		menue.add_command(label="Leg controller", command=self.show_leg_controller_setup)
 		menue_bar.add_cascade(label="Setup View", menu=menue)

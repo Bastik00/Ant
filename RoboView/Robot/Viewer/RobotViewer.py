@@ -3,6 +3,7 @@
 from time import sleep
 import tkinter
 import tkinter as tk
+import tkinter.ttk as ttk
 
 
 from RoboView.Robot.Connection.Serial.SerialConnectionView import SerialConectionView
@@ -19,17 +20,18 @@ class RobotViewer:
 		RobotSettings.set_file_name(robot.get_name() + ".pkl")
 		RobotSettings.load_settings()
 
-		self._frame.geometry("800x400")
+		self._frame.geometry("1024x576")
 		self._robot = robot
 		self.build_window()
 
 
 	def build_window(self):
 
-		menu_bar = tkinter.Menu(self._frame)
+		menu_bar = tk.Menu(self._frame)
 	#	connection_menue = self.make_connection_menue(menu_bar)
-
 	#	menu_bar.add_cascade(label="File", menu=connection_menue)
+ 
+	#	connection_menue and settings_menue are implemented in this class, others in subclass
 		self.make_connection_menue(menu_bar)
 		self.make_data_menu(menu_bar)
 		self.make_control_menu(menu_bar)
@@ -61,7 +63,7 @@ class RobotViewer:
 
 
 	def onOpenConectionWindow(self):
-		self._connectionWindow = SerialConectionView(self._frame, 100, 100)
+		self._connectionWindow = SerialConectionView(self._frame, 200, 200)
 		self._connectionWindow.draw()
 		#self._connectionWindow
 
@@ -73,12 +75,11 @@ class RobotViewer:
 		menue = tk.Menu(menue_bar)
 		menue.add_command(label="Serial", command=self.onOpenConectionWindow)
 		menue_bar.add_cascade(label="Connection", menu=menue)
-
-		return menue
+		# return menue
 
 
 	def make_settings_menue(self, menue_bar):
-		menue = tkinter.Menu(menue_bar)
+		menue = tk.Menu(menue_bar)
 		menue.add_command(label="Load desktop", command=self.load_config)
 		menue.add_command(label="Save desktop", command=self.save_config)
 		menue_bar.add_cascade(label="Settings", menu=menue)

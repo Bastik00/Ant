@@ -24,7 +24,7 @@ class SerialConectionView(InternalWindow):
 		#w.pack()
 		w = Label(self._frame , text="port")
 		w.place(x=10, y = 30, width = 60, height= 20)
-		#w.pack()
+		w.pack()
 
 
 		comboExample = Combobox(self._frame, 

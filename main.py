@@ -1,4 +1,4 @@
-#github Bastik00
+# github Bastik00
 from AntView.AntView import AntView
 from ant import Ant
 

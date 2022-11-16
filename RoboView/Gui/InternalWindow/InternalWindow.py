@@ -1,6 +1,6 @@
 
 
-from tkinter import  Frame
+from tkinter.ttk import  Frame
 from RoboView.Gui.InternalWindow.WindowCloser import WindowCloser
 from RoboView.Gui.InternalWindow.WindowResizer import WindowResizer
 
@@ -11,8 +11,8 @@ from RoboView.Robot.Viewer.RobotSettings import RobotSettings
 
 class InternalWindow():
     def __init__(self, name, x_pos, y_pos ,x_size, y_size):
-        self._frame = Frame( bg = "GRAY", borderwidth=1)    
-
+        #self._frame = Frame( bg = "GRAY", borderwidth=1)    
+        self._frame = Frame( )
         self._settings_key = self.__class__.__name__
 
         self._min_width = 100
@@ -38,10 +38,6 @@ class InternalWindow():
         self._frame.config(highlightbackground = "RED", highlightcolor= "RED") 
         self._frame.place(height=y_size, width = x_size, x=x_pos, y=y_pos)
 
-
-        
-        
-
         self._title = WindowTitle(self._frame, self)
         self._title.rename(name)
 
@@ -50,15 +46,13 @@ class InternalWindow():
 
         self.resize_window()
 
-  
-
 
     def move(self, x_delta, y_delta):
         x = self._frame.winfo_x()
         y = self._frame.winfo_y()
         new_x = x - x_delta
         new_y = y - y_delta
-        if(new_x > 0 and new_x < self._frame.winfo_width()):
+        if(new_x > 0 ):
             x = x - x_delta
         if(new_y > 0): 
             y = y - y_delta
@@ -81,7 +75,7 @@ class InternalWindow():
             new_x = self._min_width
 
         if  new_y < self._min_height:
-            new_y =self._min_height
+            new_y = self._min_height
 
         x = self._frame.winfo_x()
         y = self._frame.winfo_y()
