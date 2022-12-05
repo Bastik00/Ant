@@ -17,14 +17,9 @@ class SerialConectionView(InternalWindow):
 
 
 	def buildView(self):
-
-		#w = Label(self._frame , text="""Hello Tkinte
-		#r!""")
-		#w.place(5,5,100,20)
-		#w.pack()
 		w = Label(self._frame , text="port")
-		w.place(x=10, y = 30, width = 60, height= 20)
-		w.pack()
+		w.place(x=20, y = 50, width = 60, height= 20)
+		#w.pack()
 
 
 		comboExample = Combobox(self._frame, 
@@ -34,7 +29,7 @@ class SerialConectionView(InternalWindow):
                                     "March",
                                     "April"])
 
-		comboExample.place(x=70, y = 30, width = 100, height= 20)
+		comboExample.place(x=20, y = 70, width = 100, height= 20)
 
 
 

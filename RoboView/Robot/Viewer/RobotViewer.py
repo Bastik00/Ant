@@ -3,7 +3,6 @@
 from time import sleep
 import tkinter
 import tkinter as tk
-import tkinter.ttk as ttk
 
 
 from RoboView.Robot.Connection.Serial.SerialConnectionView import SerialConectionView
@@ -16,7 +15,7 @@ class RobotViewer:
 
 	def __init__(self, robot):
 		self._frame = tk.Tk() 
-		self._frame.title()
+		self._frame.title("Spiderbot")
 		RobotSettings.set_file_name(robot.get_name() + ".pkl")
 		RobotSettings.load_settings()
 
@@ -28,8 +27,6 @@ class RobotViewer:
 	def build_window(self):
 
 		menu_bar = tk.Menu(self._frame)
-	#	connection_menue = self.make_connection_menue(menu_bar)
-	#	menu_bar.add_cascade(label="File", menu=connection_menue)
  
 	#	connection_menue and settings_menue are implemented in this class, others in subclass
 		self.make_connection_menue(menu_bar)
@@ -37,7 +34,6 @@ class RobotViewer:
 		self.make_control_menu(menu_bar)
 		self.make_setup_menu(menu_bar)
 		self.make_settings_menue(menu_bar)
-
 
 		self._frame.config(menu=menu_bar)
 
@@ -75,7 +71,6 @@ class RobotViewer:
 		menue = tk.Menu(menue_bar)
 		menue.add_command(label="Serial", command=self.onOpenConectionWindow)
 		menue_bar.add_cascade(label="Connection", menu=menue)
-		# return menue
 
 
 	def make_settings_menue(self, menue_bar):

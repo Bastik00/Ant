@@ -1,6 +1,6 @@
 
 
-from tkinter.ttk import  Frame
+from tkinter import  Frame
 from RoboView.Gui.InternalWindow.WindowCloser import WindowCloser
 from RoboView.Gui.InternalWindow.WindowResizer import WindowResizer
 
@@ -10,20 +10,18 @@ from RoboView.Robot.Viewer.RobotSettings import RobotSettings
 
 
 class InternalWindow():
+    
     def __init__(self, name, x_pos, y_pos ,x_size, y_size):
-        #self._frame = Frame( bg = "GRAY", borderwidth=1)    
-        self._frame = Frame( )
+        self._frame = Frame( bg = "GRAY", borderwidth=1) 
+        
         self._settings_key = self.__class__.__name__
 
-        self._min_width = 100
-        self._min_height = 100
+        self._min_width = 200
+        self._min_height = 150
 
 
         x_pos = RobotSettings.get_int(self._settings_key+".x_pos")
         y_pos = RobotSettings.get_int(self._settings_key+".y_pos")
-
-
-
         x_size = RobotSettings.get_int(self._settings_key+".x_size")
         y_size = RobotSettings.get_int(self._settings_key+".y_size")
 
@@ -32,8 +30,6 @@ class InternalWindow():
 
         if y_size < self._min_height:  
             y_size =self._min_height 
-
-
 
         self._frame.config(highlightbackground = "RED", highlightcolor= "RED") 
         self._frame.place(height=y_size, width = x_size, x=x_pos, y=y_pos)
@@ -68,22 +64,21 @@ class InternalWindow():
     def draw(self):
       self.resize_window()
 
-    def resize(self, new_x, new_y ):
+    def resize(self, width, height):
 
+        if width < self._min_width:
+            width = self._min_width
 
-        if new_x < self._min_width:
-            new_x = self._min_width
-
-        if  new_y < self._min_height:
-            new_y = self._min_height
+        if  height < self._min_height:
+            height = self._min_height
 
         x = self._frame.winfo_x()
         y = self._frame.winfo_y()
 
-        self._frame.place(x=x, y = y, width = new_x, height= new_y)
+        self._frame.place(x=x, y = y, width = width, height= height)
 
-        RobotSettings.set_key(self._settings_key+".x_size" ,new_x)
-        RobotSettings.set_key(self._settings_key+".y_size", new_y)
+        RobotSettings.set_key(self._settings_key+".x_size" ,width)
+        RobotSettings.set_key(self._settings_key+".y_size", height)
 
         self.resize_window()
 
@@ -111,23 +106,15 @@ class InternalWindow():
         self._frame.destroy()
 
 
-
     def set_robot(self, robot):
         return True
-        
+    
 
-
-
-
-    def save_bounds(self):
-
-#	UiSettings.saveInt(this.settingsKey+xPositionKey, this.getX());
-#	UiSettings.saveInt(this.settingsKey+yPositionKey, this.getY());
-#	UiSettings.saveInt(this.settingsKey+xSizeKey, this.getWidth());
-#	UiSettings.saveInt(this.settingsKey+ySizeKey, this.getHeight());
-        pass
-
-
+    def save_bounds(self, x_pos, y_pos, width, height):
+        RobotSettings.set_key(self._settings_key+".x_pos" ,x_pos)
+        RobotSettings.set_key(self._settings_key+".y_pos", y_pos)
+        RobotSettings.set_key(self._settings_key+".x_size" ,width)
+        RobotSettings.set_key(self._settings_key+".y_size", height)
 
 
     def on_closing(self):
