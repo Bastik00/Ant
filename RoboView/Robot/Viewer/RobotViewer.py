@@ -5,7 +5,7 @@ import tkinter
 import tkinter as tk
 
 
-from RoboView.Robot.Connection.Serial.SerialConnectionView import SerialConectionView
+from RoboView.Robot.Connection.Serial.SerialConnectionView import SerialConnectionView
 from RoboView.Robot.Viewer.RobotSettings import RobotSettings
 
 
@@ -59,7 +59,7 @@ class RobotViewer:
 
 
 	def onOpenConectionWindow(self):
-		self._connectionWindow = SerialConectionView(self._frame, 200, 200)
+		self._connectionWindow = SerialConnectionView(self._frame, 200, 200)
 		self._connectionWindow.draw()
 		#self._connectionWindow
 

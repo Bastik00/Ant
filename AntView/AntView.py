@@ -6,7 +6,7 @@ from AntView.Devices.LegSensors.LegSensorsControlView import LegSensorsControlVi
 
 from AntView.Devices.LegSensors.LegSensorsDataView import LegSensorsDataView
 from AntView.Devices.headSensors.HeadSensorsDataView import HeadSensorsDataView
-from AntView.Devices.legController.LegControllerControlView import LegControllersControliew
+from AntView.Devices.legController.LegControllerControlView import LegControllersControlView
 from AntView.Devices.legController.LegControllerDataView import LegControllersDataView
 from AntView.Devices.legController.LegControllerSetupView import LegControllerSetupView
 from RoboView.Robot.Device.generic.dataHub.view.DataHubDataView import DataHubDataView
@@ -25,21 +25,21 @@ class AntView(RobotViewer):
 		menue.add_command(label="Data Hub", command=self.show_data_hub_data)
 		menue.add_command(label="Head Sensors", command=self.show_head_sensors_data)
 		menue.add_command(label="Leg Sensors", command=self.show_leg_sensors_data)
-		menue.add_command(label="Leg controller", command=self.show_leg_controller_data)
+		menue.add_command(label="Leg Controller", command=self.show_leg_controller_data)
 		menue_bar.add_cascade(label="Data View", menu=menue)
 		
 
 	def make_control_menu(self, menue_bar):
 		menue = tk.Menu(menue_bar)
-		menue.add_command(label="Leg controller", command=self.show_leg_controller_control)
-		menue.add_command(label="Leg sensors", command=self.show_leg_sensors_control)
+		menue.add_command(label="Leg Sensors", command=self.show_leg_sensors_control)
+		menue.add_command(label="Leg Controller", command=self.show_leg_controller_control)
 		menue_bar.add_cascade(label="Control View", menu=menue)
 
 
 	def make_setup_menu(self, menue_bar):
 		menue = tk.Menu(menue_bar)
 		menue.add_command(label="Leg Sensors", command=self.show_leg_sensors_setup)
-		menue.add_command(label="Leg controller", command=self.show_leg_controller_setup)
+		menue.add_command(label="Leg Controller", command=self.show_leg_controller_setup)
 		menue_bar.add_cascade(label="Setup View", menu=menue)
 
 
@@ -82,7 +82,7 @@ class AntView(RobotViewer):
 	def show_leg_controller_control(self):
 		print("show leg controller data")
 		device = self._robot.get_leg_controller()
-		self._leg_controller_data = LegControllersControliew(device)
+		self._leg_controller_data = LegControllersControlView(device)
 		self._leg_controller_data.draw()
 	
 

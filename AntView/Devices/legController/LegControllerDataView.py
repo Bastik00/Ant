@@ -7,7 +7,7 @@ from RoboView.Robot.component.actor.servo.view.ServoDataView import ServoDataVie
 
 class LegControllersDataView(DeviceView):
 	def __init__(self, device) :
-		super().__init__("Leg Controller data", device, 100, 100 ,200, 200)
+		super().__init__("Leg Controller Data", device, 100, 100 ,200, 200)
 		
 
 		self.make_display(device)

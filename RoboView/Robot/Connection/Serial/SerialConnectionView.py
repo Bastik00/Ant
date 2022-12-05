@@ -6,7 +6,7 @@ from RoboView.Gui.InternalWindow.InternalWindow import InternalWindow
 from RoboView.Robot.Ui.Settings.UiSettings import UiSettings
 
 
-class SerialConectionView(InternalWindow):
+class SerialConnectionView(InternalWindow):
 	def __init__(self,root, x_pos, y_pos):
 		
 		UiSettings.get_int_value("test")
