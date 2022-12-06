@@ -1,8 +1,9 @@
 
 
 from time import sleep
-import tkinter
+
 import tkinter as tk
+import customtkinter as ctk
 
 
 from RoboView.Robot.Connection.Serial.SerialConnectionView import SerialConnectionView
@@ -10,22 +11,25 @@ from RoboView.Robot.Viewer.RobotSettings import RobotSettings
 
 
 
+
 class RobotViewer:
 
 
 	def __init__(self, robot):
-		self._frame = tk.Tk() 
+		self._frame = ctk.CTk() 
 		self._frame.title("Spiderbot")
+		
 		RobotSettings.set_file_name(robot.get_name() + ".pkl")
 		RobotSettings.load_settings()
 
 		self._frame.geometry("1024x576")
+		
+		ctk.set_appearance_mode("Dark")
 		self._robot = robot
 		self.build_window()
 
-
 	def build_window(self):
-
+		
 		menu_bar = tk.Menu(self._frame)
  
 	#	connection_menue and settings_menue are implemented in this class, others in subclass
@@ -61,10 +65,6 @@ class RobotViewer:
 	def onOpenConectionWindow(self):
 		self._connectionWindow = SerialConnectionView(self._frame, 200, 200)
 		self._connectionWindow.draw()
-		#self._connectionWindow
-
-		#self._frame.place(x=x, y = y, width = new_x, height= new_y)
-		#print(filedialog.askopenfilename(initialdir = "/",title = "Open file",filetypes = (("Python files","*.py;*.pyw"),("All files","*.*"))))
  
 
 	def make_connection_menue(self, menue_bar):

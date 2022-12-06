@@ -1,7 +1,4 @@
-
-
 from tkinter import Canvas
-
 
 class WindowTitle():
     def __init__(self, root, master):

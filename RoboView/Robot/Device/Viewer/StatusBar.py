@@ -1,12 +1,15 @@
 
 
 from tkinter import LEFT, RIGHT, Frame
+import customtkinter as ctk
 from RoboView.Robot.Device.Viewer.ComStatisticsView import ComStatisticsView
 from RoboView.Robot.Device.Viewer.CpuStatisticsView import CpuStatisticsView
 
 
 class StatusBar:
 	def __init__(self, root, device):
+     
+		#self._frame = ctk.CTkFrame(master = root, fg_color = "BLUE", border_width=1)
 		self._frame = Frame(master = root, bg = "BLUE", borderwidth=1)
 		self._root = root
 

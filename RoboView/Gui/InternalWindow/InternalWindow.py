@@ -1,6 +1,7 @@
 
 
 from tkinter import  Frame
+import customtkinter as ctk
 from RoboView.Gui.InternalWindow.WindowCloser import WindowCloser
 from RoboView.Gui.InternalWindow.WindowResizer import WindowResizer
 
@@ -12,7 +13,8 @@ from RoboView.Robot.Viewer.RobotSettings import RobotSettings
 class InternalWindow():
     
     def __init__(self, name, x_pos, y_pos ,x_size, y_size):
-        self._frame = Frame( bg = "GRAY", borderwidth=1) 
+        self._frame = Frame(bg = "GRAY", borderwidth=1) 
+        #self._frame = ctk.CTkFrame(bg = "GRAY", borderwidth=1) 
         
         self._settings_key = self.__class__.__name__
 

@@ -1,5 +1,6 @@
 
 from tkinter import Frame
+import customtkinter as ctk
 from RoboView.Gui.InternalWindow.InternalWindow import InternalWindow
 from RoboView.Robot.Device.Viewer.StatusBar import StatusBar
 from RoboView.Robot.Device.Viewer.ToolBar import ToolBar
@@ -15,7 +16,7 @@ class DeviceView(InternalWindow):
 
 		super().__init__(name, x_pos, y_pos ,x_size, y_size)
 		
-		self._display = Frame( master = self._frame, bg = "GRAY", borderwidth=1)
+		self._display = Frame(self._frame, bg = "GRAY", borderwidth=1)
 		self._status_bar =  StatusBar(self._frame, device) 
 		self._tool_bar = ToolBar(self._frame, device) 
 		

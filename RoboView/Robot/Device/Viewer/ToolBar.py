@@ -1,4 +1,5 @@
 from tkinter import LEFT, RIGHT, Button, Frame, Menu, Spinbox, StringVar, Tk
+import customtkinter as ctk
 from tkinter.ttk import Combobox
 from RoboView.Robot.Device.Viewer.ComStatisticsView import ComStatisticsView
 from RoboView.Robot.Device.Viewer.CpuStatisticsView import CpuStatisticsView
@@ -6,13 +7,13 @@ from RoboView.Robot.Device.Viewer.CpuStatisticsView import CpuStatisticsView
 
 class ToolBar:
 	def __init__(self, root, device):
-		self._frame = Frame(master = root, bg = "BLUE", borderwidth=1)
+		self._frame = ctk.CTkFrame(master = root,  fg_color = "BLUE", border_width=1)
 		self._root = root
 
 		self._device = device
 
 
-		label = Button(self._frame  ,text="ping", command = self.send_ping)
+		label = ctk.CTkButton(self._frame  ,text="ping", command = self.send_ping)
 		label.pack(side = RIGHT)
 
 
@@ -44,11 +45,11 @@ class ToolBar:
 
 		self._aquisators.current(0)
 		self._aquisators.pack(side = LEFT)
-
-		button = Button(self._frame  ,text="On", command = self.start_stream)
+		# TODO: Buttons kleiner machen
+		button = ctk.CTkButton(self._frame  ,text="On", fg_color = "WHITE", width = 50, corner_radius = 5, command = self.start_stream)
 		button.pack(side = LEFT)
 		
-		button = Button(self._frame  ,text="Off", command = self.stop_stream)
+		button = ctk.CTkButton(self._frame  ,text="Off", fg_color = "WHITE", width = 50, corner_radius = 5, command = self.stop_stream)
 		button.pack(side = LEFT)
 
 		self._frame.bind("<ButtonRelease-3>", self.mouse_released)
