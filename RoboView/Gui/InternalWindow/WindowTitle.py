@@ -2,6 +2,7 @@ from tkinter import Canvas
 
 class WindowTitle():
     def __init__(self, root, master):
+        # TODO: Canvas in Frame packen
         self._canvas = Canvas(root)
         self._root = root
         self._master = master
