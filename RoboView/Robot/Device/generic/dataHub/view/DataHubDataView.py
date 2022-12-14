@@ -3,7 +3,7 @@ from RoboView.Robot.Device.Viewer.DeviceView import DeviceView
 
 class DataHubDataView(DeviceView):
 	def __init__(self, device) :
-		super().__init__( "Main Data Hub", device, 100, 100 ,200, 200)
+		super().__init__( "Main Data Hub", device, 100, 0 ,400, 200)
 		
 
 

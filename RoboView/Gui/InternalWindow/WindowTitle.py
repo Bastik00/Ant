@@ -1,8 +1,9 @@
 from tkinter import Canvas
+import customtkinter as ctk
+
 
 class WindowTitle():
     def __init__(self, root, master):
-        # TODO: Canvas in Frame packen
         self._canvas = Canvas(root)
         self._root = root
         self._master = master
@@ -14,7 +15,6 @@ class WindowTitle():
 
     def rename(self, new_name):
          self._canvas.itemconfig(self._name, text = new_name)
-
 
     def mouse_pressed(self,event):
         self._origin_x = event.x

@@ -22,7 +22,7 @@ class RobotViewer:
 		RobotSettings.set_file_name(robot.get_name() + ".pkl")
 		RobotSettings.load_settings()
 
-		self._frame.geometry("1024x576")
+		self._frame.geometry("1424x776")
 		
 		ctk.set_appearance_mode("Dark")
 		self._robot = robot
@@ -78,9 +78,6 @@ class RobotViewer:
 		menue.add_command(label="Load desktop", command=self.load_config)
 		menue.add_command(label="Save desktop", command=self.save_config)
 		menue_bar.add_cascade(label="Settings", menu=menue)
-
-
-
 
 
 """

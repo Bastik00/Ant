@@ -14,13 +14,11 @@ class InternalWindow():
     
     def __init__(self, name, x_pos, y_pos ,x_size, y_size):
         self._frame = Frame(bg = "GRAY", borderwidth=1) 
-        #self._frame = ctk.CTkFrame(bg = "GRAY", borderwidth=1) 
         
         self._settings_key = self.__class__.__name__
 
         self._min_width = 200
         self._min_height = 150
-
 
         x_pos = RobotSettings.get_int(self._settings_key+".x_pos")
         y_pos = RobotSettings.get_int(self._settings_key+".y_pos")
@@ -33,7 +31,6 @@ class InternalWindow():
         if y_size < self._min_height:  
             y_size =self._min_height 
 
-        self._frame.config(highlightbackground = "RED", highlightcolor= "RED") 
         self._frame.place(height=y_size, width = x_size, x=x_pos, y=y_pos)
 
         self._title = WindowTitle(self._frame, self)
