@@ -10,7 +10,7 @@ class WindowTitle():
         self._canvas.config(bg = "BLUE")
         self._canvas.bind("<Button-1>", self.mouse_pressed)
         self._canvas.bind("<ButtonRelease-1>", self.mouse_released)
-        self._name = self._canvas.create_text(10,10, text = "test",  fill='WHITE', anchor='w')
+        self._name = self._canvas.create_text(10, 15, text = "test",  fill='WHITE', anchor='w', font=('Helvetica','15','bold'))
 
 
     def rename(self, new_name):

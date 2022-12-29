@@ -8,36 +8,32 @@ from RoboView.Robot.Device.Viewer.ToolBar import ToolBar
 
 class DeviceView(InternalWindow):
 	def __init__(self, name, device, x_pos, y_pos ,x_size, y_size):
-		self._status_bar = None
+		
 		self._tool_bar = None
 		self._display = None
-
-		
+		self._status_bar = None
 
 		super().__init__(name, x_pos, y_pos ,x_size, y_size)
-		
-		self._display = Frame(self._frame, bg = "green", borderwidth=1)
-		self._status_bar =  StatusBar(self._frame, device) 
-		self._tool_bar = ToolBar(self._frame, device) 
-		
-		
 
+		self._tool_bar = ToolBar(self._frame, device) 
+		self._display = Frame(self._frame, bg = "gray", borderwidth=1)
+		self._status_bar =  StatusBar(self._frame, device) 
+		
 	
 	def resize_window(self):
 		super().resize_window()
 		self._frame.update()
 		x_size = self._frame.winfo_width() 
 		y_size = self._frame.winfo_height()
-	
-		if self._tool_bar is not None:
-			self._tool_bar._frame.place(height=35, width = x_size - 2, x = 1, y = 15)
-
-		if self._display is not None:
-			self._display.place(height=y_size - 100 , width = x_size - 2, x = 1, y = 55)
 
 		if self._status_bar is not None:
-			self._status_bar._frame.place(height=50, width = x_size - 21, x = 1, y = y_size - 20)
+			self._status_bar._frame.place(height=50, width = x_size - 21, x = 1, y = y_size - 50)
    
+		if self._tool_bar is not None:
+			self._tool_bar._frame.place(height=35, width = x_size - 2, x = 1, y = 25)
+   
+		if self._display is not None:
+			self._display.place(height=y_size - 110 , width = x_size - 2, x = 1, y = 70)
 	def set_robot(self, robot):
 		pass
 

@@ -8,7 +8,7 @@ from RoboView.Robot.Device.Viewer.Spinbox import Spinbox
 
 class ToolBar:
 	def __init__(self, root, device):
-		self._frame = ctk.CTkFrame(master = root,  fg_color = "BLUE", border_width=1)
+		self._frame = ctk.CTkFrame(master = root, height=30, bg_color= "darkblue", fg_color = "darkblue", border_width=0)
 		self._root = root
 
 		self._device = device
@@ -16,7 +16,6 @@ class ToolBar:
 
 		btn_ping = ctk.CTkButton(self._frame  ,text="ping", command = self.send_ping, width=30)
 		btn_ping.pack(side = RIGHT)
-
 
 		self.build_view()
 
@@ -43,7 +42,6 @@ class ToolBar:
 
 		#self._aquisators.current(0)
 		self._aquisators.pack(side = LEFT)
-		# TODO: Buttons kleiner machen
 		button = ctk.CTkButton(self._frame  ,text="On", width = 40, corner_radius = 5, command = self.start_stream)
 		button.pack(side = LEFT)
 		

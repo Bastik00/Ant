@@ -89,9 +89,9 @@ class InternalWindow():
         x_size = self._frame.winfo_width() 
         y_size = self._frame.winfo_height()
 
-        self._title._canvas.place(height=20, width = x_size -40 , x=20, y = 0)
+        self._title._canvas.place(height=30, width = x_size -30 , x=0, y = 0)
         self._resizer._canvas.place(height=20, width = 20, x=x_size-20, y=y_size-20)
-        self._closer._canvas.place(height=20, width = 20, x=x_size-20, y = 0)
+        self._closer._canvas.place(height=30, width = 30, x=x_size-30, y = 0)
         
 
     def set_min_dimension(self, new_min_x, new_min_y):

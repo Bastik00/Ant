@@ -1,6 +1,6 @@
 
 
-from tkinter import Canvas
+from tkinter import Canvas, PhotoImage
 
 class WindowCloser():
     def __init__(self, root,master):
@@ -9,6 +9,8 @@ class WindowCloser():
         self._master = master
         self._canvas.config(bg = "RED")
         self._canvas.bind("<ButtonRelease-1>", self.mouse_released)
+        img = PhotoImage(file="close_icon.png")
+        self._canvas.create_image(0,0, image=img)
  
     def mouse_released(self,event):
         self._master.close()
