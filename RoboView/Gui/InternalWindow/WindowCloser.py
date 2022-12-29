@@ -7,7 +7,7 @@ class WindowCloser():
         self._root = root
         self._canvas = Canvas(root)
         self._master = master
-        self._image = PhotoImage(file="xconvert.com.png")
+        self._image = PhotoImage(file="Ant/close.png")
         
         self._canvas.create_image(0,0, image=self._image, anchor='nw')
         self._canvas.bind("<ButtonRelease-1>", self.mouse_released)
