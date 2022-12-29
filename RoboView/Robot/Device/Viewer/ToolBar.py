@@ -1,14 +1,11 @@
 from tkinter import LEFT, RIGHT, Button, Frame, Menu, Spinbox, StringVar, Tk
 import customtkinter as ctk
-from tkinter.ttk import Combobox
-from RoboView.Robot.Device.Viewer.ComStatisticsView import ComStatisticsView
-from RoboView.Robot.Device.Viewer.CpuStatisticsView import CpuStatisticsView
 from RoboView.Robot.Device.Viewer.Spinbox import Spinbox
 
 
 class ToolBar:
 	def __init__(self, root, device):
-		self._frame = ctk.CTkFrame(master = root, height=30, bg_color= "darkblue", fg_color = "darkblue", border_width=0)
+		self._frame = ctk.CTkFrame(master = root, height=30)
 		self._root = root
 
 		self._device = device

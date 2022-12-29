@@ -7,10 +7,11 @@ class WindowCloser():
         self._root = root
         self._canvas = Canvas(root)
         self._master = master
-        self._canvas.config(bg = "RED")
+        self._image = PhotoImage(file="xconvert.com.png")
+        
+        self._canvas.create_image(0,0, image=self._image, anchor='nw')
         self._canvas.bind("<ButtonRelease-1>", self.mouse_released)
-        img = PhotoImage(file="close_icon.png")
-        self._canvas.create_image(0,0, image=img)
+
  
     def mouse_released(self,event):
         self._master.close()

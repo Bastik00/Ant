@@ -18,7 +18,6 @@ class DeviceView(InternalWindow):
 		self._tool_bar = ToolBar(self._frame, device) 
 		self._display = Frame(self._frame, bg = "gray", borderwidth=1)
 		self._status_bar =  StatusBar(self._frame, device) 
-		
 	
 	def resize_window(self):
 		super().resize_window()
@@ -27,13 +26,13 @@ class DeviceView(InternalWindow):
 		y_size = self._frame.winfo_height()
 
 		if self._status_bar is not None:
-			self._status_bar._frame.place(height=50, width = x_size - 21, x = 1, y = y_size - 50)
+			self._status_bar._frame.place(height=49, width = x_size - 23, x = 1, y = y_size - 51)
    
 		if self._tool_bar is not None:
 			self._tool_bar._frame.place(height=35, width = x_size - 2, x = 1, y = 25)
    
 		if self._display is not None:
-			self._display.place(height=y_size - 110 , width = x_size - 2, x = 1, y = 70)
+			self._display.place(height=y_size - 110 , width = x_size - 3, x = 1, y = 70)
 	def set_robot(self, robot):
 		pass
 

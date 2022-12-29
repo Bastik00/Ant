@@ -7,7 +7,7 @@ class WindowTitle():
         self._canvas = Canvas(root)
         self._root = root
         self._master = master
-        self._canvas.config(bg = "BLUE")
+        self._canvas.config(bg = "darkblue")
         self._canvas.bind("<Button-1>", self.mouse_pressed)
         self._canvas.bind("<ButtonRelease-1>", self.mouse_released)
         self._name = self._canvas.create_text(10, 15, text = "test",  fill='WHITE', anchor='w', font=('Helvetica','15','bold'))

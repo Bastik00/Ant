@@ -13,7 +13,7 @@ from RoboView.Robot.Viewer.RobotSettings import RobotSettings
 class InternalWindow():
     
     def __init__(self, name, x_pos, y_pos ,x_size, y_size):
-        self._frame = Frame(bg = "GRAY", borderwidth=1) 
+        self._frame = Frame(bg = "GRAY", borderwidth=1, relief='solid') 
         
         self._settings_key = self.__class__.__name__
 
@@ -89,8 +89,8 @@ class InternalWindow():
         x_size = self._frame.winfo_width() 
         y_size = self._frame.winfo_height()
 
-        self._title._canvas.place(height=30, width = x_size -30 , x=0, y = 0)
-        self._resizer._canvas.place(height=20, width = 20, x=x_size-20, y=y_size-20)
+        self._title._canvas.place(height=30, width = x_size -27 , x=0, y = 0)
+        self._resizer._canvas.place(height=20, width = 20, x=x_size-22, y=y_size-22)
         self._closer._canvas.place(height=30, width = 30, x=x_size-30, y = 0)
         
 
