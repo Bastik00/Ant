@@ -4,7 +4,7 @@ from typing import Union, Tuple, Callable, Optional
 class Spinbox(customtkinter.CTkFrame):
     def __init__(self, *args,
                  width: int = 110,
-                 height: int = 30,
+                 height: int = 20,
                  step_size: Union[int, float] = 1,
                  command: Callable = None,
                  **kwargs):
@@ -13,7 +13,7 @@ class Spinbox(customtkinter.CTkFrame):
         self.step_size = step_size
         self.command = command
 
-        self.configure(fg_color=("gray78", "gray28"))  # set frame color
+        self.configure(corner_radius=7, fg_color='transparent')  # set frame color '#565b5e'
 
         self.grid_columnconfigure((0, 2), weight=0)  # buttons don't expand
         self.grid_columnconfigure(1, weight=1)  # entry expands

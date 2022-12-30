@@ -5,13 +5,13 @@ from RoboView.Robot.Device.Viewer.Spinbox import Spinbox
 
 class ToolBar:
 	def __init__(self, root, device):
-		self._frame = ctk.CTkFrame(master = root, height=30)
+		self._frame = ctk.CTkFrame(master = root, corner_radius=0)
 		self._root = root
 
 		self._device = device
 
 
-		btn_ping = ctk.CTkButton(self._frame  ,text="ping", command = self.send_ping, width=30)
+		btn_ping = ctk.CTkButton(self._frame  ,text="ping", command = self.send_ping, width=30, height=25, corner_radius = 5)
 		btn_ping.pack(side = RIGHT)
 
 		self.build_view()
@@ -25,24 +25,20 @@ class ToolBar:
 
 	def build_view(self):
 
-		self._period = Spinbox( self._frame, step_size = 10)
+		self._period = Spinbox( self._frame, step_size = 10, height=20, corner_radius = 5)
 		self._period.set(1000)
 		self._period.pack(side = LEFT)
-		
-
+  
 		aquisators = self._device.get_data_aquisators()
+		self._aquisators = ctk.CTkComboBox(self._frame,
+								values=aquisators, height=25)
 
-	
-		self._aquisators = ctk.CTkComboBox(self._frame, 
-								values=aquisators)
-
-
-		#self._aquisators.current(0)
 		self._aquisators.pack(side = LEFT)
-		button = ctk.CTkButton(self._frame  ,text="On", width = 40, corner_radius = 5, command = self.start_stream)
+  
+		button = ctk.CTkButton(self._frame  ,text="On", width = 30, height=25, corner_radius = 5, command = self.start_stream)
 		button.pack(side = LEFT)
 		
-		button = ctk.CTkButton(self._frame  ,text="Off", width = 40, corner_radius = 5, command = self.stop_stream)
+		button = ctk.CTkButton(self._frame  ,text="Off", width = 30, height=25, corner_radius = 5, command = self.stop_stream)
 		button.pack(side = LEFT)
 
 		self._frame.bind("<ButtonRelease-3>", self.mouse_released)
@@ -85,7 +81,7 @@ class ToolBar:
 	def start_stream(self):
 		print(self._aquisators.current())
 		index = self._aquisators.current() + 1
-		self._device.remote_start_stream(index, int(int(self._period.get())/10))
+		#self._device.remote_start_stream(index, int(int(self._period.get())/10))
 
 
 	def stop_stream(self):

@@ -20,6 +20,7 @@ class RobotViewer:
 		self._frame.title("Spiderbot")
 		
 		RobotSettings.set_file_name(robot.get_name() + ".pkl")
+		print('Set file name: {}'.format(robot.get_name()))
 		RobotSettings.load_settings()
 
 		self._frame.geometry("1424x776")

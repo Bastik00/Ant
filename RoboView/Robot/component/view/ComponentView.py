@@ -1,6 +1,6 @@
 
 from tkinter import Frame, Label, Menu
-
+import customtkinter as ctk
 from RoboView.Robot.Viewer.RobotSettings import RobotSettings
  
 
@@ -9,12 +9,12 @@ class ComponentView:
 
 		self._settings_key = settings_key+"."+self.__class__.__name__+"."+name
 
-		self._frame = Frame(master = root, bg = "BLACK", borderwidth=2, width =300)
+		self._frame = Frame(master = root, bg = "BLACK", width =300, borderwidth=2)
 		self._master = root
 		self._width = width
 		self._height = height
 
-		self._data_frame = Frame(master = self._frame, bg = "YELLOW", borderwidth=0)
+		self._data_frame = Frame(master = self._frame, bg = "YELLOW")
 		
 		x_pos = RobotSettings.get_int(self._settings_key+".x_pos")
 		y_pos = RobotSettings.get_int(self._settings_key+".y_pos")

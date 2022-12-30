@@ -50,11 +50,15 @@ class RobotSettings:
 
 
     def save_settings():
+        print('----------Save Settings------------')
         with open(RobotSettings._file_name, 'wb') as f:
             pickle.dump(RobotSettings._settings, f)
+            print(RobotSettings._settings)
             
         
     def load_settings():  
+        print('----------Load Settings------------')
         if exists(RobotSettings._file_name): 
             with open(RobotSettings._file_name, 'rb') as f:
                 RobotSettings._settings = pickle.load(f)
+                print(RobotSettings._settings)
