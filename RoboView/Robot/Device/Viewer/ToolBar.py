@@ -25,7 +25,7 @@ class ToolBar:
 
 	def build_view(self):
 
-		self._period = Spinbox( self._frame, step_size = 10, height=20, corner_radius = 5)
+		self._period = Spinbox( self._frame, step_size = 10, height=20, corner_radius = 5, fg_color='#565b5e')
 		self._period.set(1000)
 		self._period.pack(side = LEFT)
   
