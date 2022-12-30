@@ -5,10 +5,12 @@ from AntView.Devices.LegSensors.LegSensorsControlView import LegSensorsControlVi
 
 
 from AntView.Devices.LegSensors.LegSensorsDataView import LegSensorsDataView
+from AntView.Devices.LegSensors.LegSensorsSetupView import LegSensorsSetupView
 from AntView.Devices.headSensors.HeadSensorsDataView import HeadSensorsDataView
 from AntView.Devices.legController.LegControllerControlView import LegControllersControlView
 from AntView.Devices.legController.LegControllerDataView import LegControllersDataView
 from AntView.Devices.legController.LegControllerSetupView import LegControllerSetupView
+
 from RoboView.Robot.Device.generic.dataHub.view.DataHubDataView import DataHubDataView
 from RoboView.Robot.Viewer.RobotViewer import RobotViewer
 
@@ -64,7 +66,7 @@ class AntView(RobotViewer):
 		self._leg_sensors_data.draw()
 
 	def show_leg_sensors_control(self):
-		print("show leg controller data")
+		print("show leg sensors control")
 		device = self._robot.get_leg_sensors()
 		self._leg_controller_data = LegSensorsControlView(device)
 		self._leg_controller_data.draw()
@@ -80,21 +82,24 @@ class AntView(RobotViewer):
 	
 
 	def show_leg_controller_control(self):
-		print("show leg controller data")
+		print("show leg controller control")
 		device = self._robot.get_leg_controller()
 		self._leg_controller_data = LegControllersControlView(device)
 		self._leg_controller_data.draw()
 	
 
 	def show_leg_controller_setup(self):
-		print("show leg controller data")
+		print("show leg controller setup")
 		device = self._robot.get_leg_controller()
 		self._leg_controller_data = LegControllerSetupView(device)
 		self._leg_controller_data.draw()
 
 
 	def show_leg_sensors_setup(self):
-		pass
+		print("show leg Sensors setup")
+		#device = self._robot.get_leg_sensors()
+		#self._leg_sensors_data = LegSensorsSetupView(device)
+		#self._leg_sensors_data.draw()
 
 
 """package de.hska.lat.ant;

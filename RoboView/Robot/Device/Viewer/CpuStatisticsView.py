@@ -1,7 +1,6 @@
 
 from tkinter import  LEFT, RIGHT, TOP, Button, Frame, Label, Menu
 
-
 class CpuStatisticsView:
 	def __init__(self, root, device):
 		self._frame = Frame(master = root, bg = "WHITE", borderwidth=1 , height = 50, width = 300  )

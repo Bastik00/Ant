@@ -1,3 +1,35 @@
+from RoboView.Robot.Device.Viewer.DeviceView import DeviceView
+from RoboView.Robot.component.actor.servo.view.ServoSetupView import ServoSetupView
+
+
+class LegSensorsSetupView(DeviceView):
+	def __init__(self, device) :
+		super().__init__( "Leg Sensors Setup", device, 100, 100 ,200, 200)
+
+		self.make_display(device)
+		
+
+	def make_display(self, device):
+
+		servos = device.get_servo_set()
+		for servo in servos:
+			print("servo")
+			ServoSetupView.create_view(self._display , servo, self._settings_key)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 """package de.hska.lat.ant.devices.legSensors;
 
 

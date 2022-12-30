@@ -1,5 +1,6 @@
 
 from tkinter import Label
+import customtkinter as ctk
 from RoboControl.Robot.Component.generic.distance.DistanceSensor import DistanceSensor
 from RoboView.Robot.component.view.MissingComponentView import MissingComponentView
 from RoboView.Robot.component.view.SensorDataView import SensorDataView

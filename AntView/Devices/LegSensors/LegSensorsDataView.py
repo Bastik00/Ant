@@ -19,10 +19,8 @@ class LegSensorsDataView(DeviceView):
 		
 		for sensor in vcln_4000_sensors:
 			view = DistanceSensorDataView.create_view(self._display , sensor.get_distance_sensor(), self._settings_key)
-			view._frame.place(x = 50, y = 50)
 
 			view = LuxSensorDataView.create_view(self._display , sensor.get_lux_sensor(), self._settings_key)
-			view._frame.place(x = 150, y = 50)
 
 
 

@@ -20,15 +20,14 @@ class ComponentView:
 		y_pos = RobotSettings.get_int(self._settings_key+".y_pos")
 		self._frame.place(x = x_pos, y = y_pos)
 
-		self._display_name = RobotSettings.get_bool(self._settings_key+".display_name")		
-
-
+		#self._display_name = RobotSettings.get_bool(self._settings_key+".display_name")
+		self._display_name = True
 
 		self._data_frame.bind("<Button-1>", self.mouse_pressed)
 		self._data_frame.bind("<ButtonRelease-1>", self.mouse_released)
 		self._data_frame.bind("<Leave>", self.mouse_released)
 	
-		self._data_frame.bind("<ButtonRelease-3>", self.show_context_manue)
+		self._data_frame.bind("<ButtonRelease-3>", self.show_context_menue)
 	
 		self.build_context_menue()
 
@@ -50,8 +49,6 @@ class ComponentView:
 		self._origin_x = event.x
 		self._origin_y = event.y
 		self._data_frame.bind("<Motion>", self.mouse_motion)
-		print("mouse pr")
-
 
 	def mouse_motion(self, event):
 		x = self._frame.winfo_x()
@@ -70,7 +67,7 @@ class ComponentView:
 		self._data_frame.unbind("<Motion>")
 
 
-	def show_context_manue(self,event):
+	def show_context_menue(self,event):
 
 		try:
 			self._context_menue.tk_popup(event.x_root, event.y_root)

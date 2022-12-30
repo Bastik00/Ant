@@ -17,8 +17,8 @@ class LegControllersControlView(DeviceView):
 		for servo in servos:
 			print("servo")
 			view = ServoControlView.create_view(self._display , servo, self._settings_key)
-			if view is not None:
-				view._frame.place(x = 50, y = 50)
+			#if view is not None:
+			#	view._frame.place(x = 50, y = 50)
 				
 """				package de.hska.lat.ant.devices.legController;
 

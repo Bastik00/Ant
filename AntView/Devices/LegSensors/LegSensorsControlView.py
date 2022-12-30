@@ -15,8 +15,8 @@ class LegSensorsControlView(DeviceView):
 		leds = device.get_led_set()
 		for led in leds:
 			view = LedControlView.create_view(self._display , led, self._settings_key)
-			if view is not None:
-				view._frame.place(x = 50, y = 50)
+			#if view is not None:
+			#	view._frame.place(x = 50, y = 50)
 
 """package de.hska.lat.ant.devices.legSensors;
 
