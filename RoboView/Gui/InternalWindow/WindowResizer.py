@@ -1,14 +1,17 @@
 
 
-from tkinter import Canvas
+from tkinter import Canvas, PhotoImage
 
 
 class WindowResizer():
     def __init__(self, root,master):
         self._root = root
-        self._canvas = Canvas(root)
+        self._canvas = Canvas(root, borderwidth=0)
         self._master = master
-        self._canvas.config(bg = "BLUE")
+        
+        self._image = PhotoImage(file="Ant/Icons/resize.png")
+        self._canvas.create_image(0,0, image=self._image, anchor='nw')
+
         self._canvas.bind("<Button-1>", self.mouse_pressed)
         self._canvas.bind("<ButtonRelease-1>", self.mouse_released)
  
