@@ -3,18 +3,16 @@ from RoboView.Robot.component.view.ComponentView import ComponentView
 
 
 class SensorDataView(ComponentView):
-	def __init__(self, root, sensor, settings_key, width, height):
-		super().__init__(root, sensor.get_name(),settings_key, width, height)
-		self._sensor = sensor
-		#self._name = sensor.get_name()
+    def __init__(self, root, sensor, settings_key, width, height):
+        super().__init__(root, sensor.get_name(), settings_key, width, height)
+        self._sensor = sensor
+        # self._name = sensor.get_name()
 
+    def value_changed(self):
 
-	def value_changed(self):
-		
-		pass
+        pass
 
-
-	# refresh fehlt
+    # refresh fehlt
 """package de.hska.lat.robot.component.view;
 
 import java.awt.event.ActionEvent;

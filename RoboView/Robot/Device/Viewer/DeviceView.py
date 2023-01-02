@@ -7,35 +7,37 @@ from RoboView.Robot.Device.Viewer.ToolBar import ToolBar
 
 
 class DeviceView(InternalWindow):
-	def __init__(self, name, device, x_pos, y_pos ,x_size, y_size):
-		
-		self._tool_bar = None
-		self._display = None
-		self._status_bar = None
+    def __init__(self, name, device, x_pos, y_pos, x_size, y_size):
 
-		super().__init__(name, x_pos, y_pos ,x_size, y_size)
+        self._tool_bar = None
+        self._display = None
+        self._status_bar = None
 
-		self._tool_bar = ToolBar(self._frame, device) 
-		self._display = Frame(self._frame, bg = "gray", borderwidth=1)
-		self._status_bar =  StatusBar(self._frame, device) 
-	
-	def resize_window(self):
-		super().resize_window()
-		self._frame.update()
-		x_size = self._frame.winfo_width() 
-		y_size = self._frame.winfo_height()
+        super().__init__(name, x_pos, y_pos, x_size, y_size)
 
-		if self._status_bar is not None:
-			self._status_bar._frame.place(height=50, width = x_size - 24, x = 0, y = y_size - 50)
-   
-		if self._tool_bar is not None:
-			self._tool_bar._frame.place(height=37, width = x_size, x = 0, y = 24)
-   
-		if self._display is not None:
-			self._display.place(height=y_size - 90 , width = x_size - 3, x = 1, y = 65)
-   
-	def set_robot(self, robot):
-		pass
+        self._tool_bar = ToolBar(self._frame, device)
+        self._display = Frame(self._frame, bg="gray", borderwidth=1)
+        self._status_bar = StatusBar(self._frame, device)
+
+    def resize_window(self):
+        super().resize_window()
+        self._frame.update()
+        x_size = self._frame.winfo_width()
+        y_size = self._frame.winfo_height()
+
+        if self._status_bar is not None:
+            self._status_bar._frame.place(
+                height=50, width=x_size - 24, x=0, y=y_size - 50)
+
+        if self._tool_bar is not None:
+            self._tool_bar._frame.place(height=37, width=x_size, x=0, y=24)
+
+        if self._display is not None:
+            self._display.place(height=y_size - 90,
+                                width=x_size - 3, x=1, y=65)
+
+    def set_robot(self, robot):
+        pass
 
 
 """package de.hska.lat.robot.device.viewer;

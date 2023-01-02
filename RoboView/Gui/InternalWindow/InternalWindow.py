@@ -1,6 +1,6 @@
 
 
-from tkinter import  Frame
+from tkinter import Frame
 import customtkinter as ctk
 from RoboView.Gui.InternalWindow.WindowCloser import WindowCloser
 from RoboView.Gui.InternalWindow.WindowResizer import WindowResizer
@@ -9,12 +9,11 @@ from RoboView.Gui.InternalWindow.WindowTitle import WindowTitle
 from RoboView.Robot.Viewer.RobotSettings import RobotSettings
 
 
-
 class InternalWindow():
-    
-    def __init__(self, name, x_pos, y_pos ,x_size, y_size):
-        self._frame = Frame(bg = "GRAY", borderwidth=1, relief='solid') 
-        
+
+    def __init__(self, name, x_pos, y_pos, x_size, y_size):
+        self._frame = Frame(bg="GRAY", borderwidth=1, relief='solid')
+
         self._settings_key = self.__class__.__name__
 
         self._min_width = 200
@@ -25,100 +24,91 @@ class InternalWindow():
         x_size = RobotSettings.get_int(self._settings_key+".x_size")
         y_size = RobotSettings.get_int(self._settings_key+".y_size")
 
-        if x_size < self._min_width:  
-            x_size = self._min_width 
+        if x_size < self._min_width:
+            x_size = self._min_width
 
-        if y_size < self._min_height:  
-            y_size =self._min_height 
+        if y_size < self._min_height:
+            y_size = self._min_height
 
-        self._frame.place(height=y_size, width = x_size, x=x_pos, y=y_pos)
+        self._frame.place(height=y_size, width=x_size, x=x_pos, y=y_pos)
 
         self._title = WindowTitle(self._frame, self)
         self._title.rename(name)
 
-        self._resizer =  WindowResizer(self._frame, self)    
-        self._closer =  WindowCloser(self._frame, self)    
+        self._resizer = WindowResizer(self._frame, self)
+        self._closer = WindowCloser(self._frame, self)
 
         self.resize_window()
-
 
     def move(self, x_delta, y_delta):
         x = self._frame.winfo_x()
         y = self._frame.winfo_y()
         new_x = x - x_delta
         new_y = y - y_delta
-        if(new_x > 0 ):
+        if (new_x > 0):
             x = x - x_delta
-        if(new_y > 0): 
+        if (new_y > 0):
             y = y - y_delta
-        self._frame.place(x = x, y = y)
+        self._frame.place(x=x, y=y)
 
-        RobotSettings.set_key(self._settings_key+".x_pos" ,x)
+        RobotSettings.set_key(self._settings_key+".x_pos", x)
         RobotSettings.set_key(self._settings_key+".y_pos", y)
 
-        
     def rename(self, new_name):
-         self._title.rename(new_name)
+        self._title.rename(new_name)
 
     def draw(self):
-      self.resize_window()
+        self.resize_window()
 
     def resize(self, width, height):
 
         if width < self._min_width:
             width = self._min_width
 
-        if  height < self._min_height:
+        if height < self._min_height:
             height = self._min_height
 
         x = self._frame.winfo_x()
         y = self._frame.winfo_y()
 
-        self._frame.place(x=x, y = y, width = width, height= height)
+        self._frame.place(x=x, y=y, width=width, height=height)
 
-        RobotSettings.set_key(self._settings_key+".x_size" ,width)
+        RobotSettings.set_key(self._settings_key+".x_size", width)
         RobotSettings.set_key(self._settings_key+".y_size", height)
 
         self.resize_window()
 
-
-
     def resize_window(self):
- 
+
         self._frame.update()
-        x_size = self._frame.winfo_width() 
+        x_size = self._frame.winfo_width()
         y_size = self._frame.winfo_height()
 
-        self._title._canvas.place(height=30, width = x_size -27 , x=0, y = 0)
-        self._resizer._canvas.place(height=22, width = 22, x=x_size-24, y=y_size-24)
-        self._closer._canvas.place(height=30, width = 30, x=x_size-30, y = 0)
-        
+        self._title._canvas.place(height=30, width=x_size - 27, x=0, y=0)
+        self._resizer._canvas.place(
+            height=22, width=22, x=x_size-24, y=y_size-24)
+        self._closer._canvas.place(height=30, width=30, x=x_size-30, y=0)
 
     def set_min_dimension(self, new_min_x, new_min_y):
         self._min_width = new_min_x
-        self._min_height =new_min_y
-        #toDo auto resize !
-
+        self._min_height = new_min_y
+        # toDo auto resize !
 
     def close(self):
         self._frame.place_forget()
         self._frame.destroy()
 
-
     def set_robot(self, robot):
         return True
-    
 
     def save_bounds(self, x_pos, y_pos, width, height):
-        RobotSettings.set_key(self._settings_key+".x_pos" ,x_pos)
+        RobotSettings.set_key(self._settings_key+".x_pos", x_pos)
         RobotSettings.set_key(self._settings_key+".y_pos", y_pos)
-        RobotSettings.set_key(self._settings_key+".x_size" ,width)
+        RobotSettings.set_key(self._settings_key+".x_size", width)
         RobotSettings.set_key(self._settings_key+".y_size", height)
-
 
     def on_closing(self):
         self.save_bounds()
-
 
 
 """

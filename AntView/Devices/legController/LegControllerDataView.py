@@ -6,35 +6,36 @@ from RoboView.Robot.component.actor.servo.view.ServoDataView import ServoDataVie
 
 
 class LegControllersDataView(DeviceView):
-	def __init__(self, device) :
-		super().__init__("Leg Controller Data", device, 100, 100 ,200, 200)
-		
+    def __init__(self, device):
+        super().__init__("Leg Controller Data", device, 100, 100, 200, 200)
 
-		self.make_display(device)
-		
+        self.make_display(device)
 
-	def make_display(self, device):
+    def make_display(self, device):
 
-		servos = device.get_servo_set()
-		for servo in servos:
-			print("servo")
-			view = ServoDataView.create_view(self._display, servo, self._settings_key)
-			if view is not None:
-				view._frame.place(x = 50, y = 50 )
-	
-		current_sensors = device.get_current_sensors()
-		for sensor in current_sensors:	
-			view = CurrentSensorDataView.create_view(self._display, sensor, self._settings_key)
-			if view is not None:
-				view._frame.place(x = 50, y = 100 )
-	
-	#	for sensor in vcln_4000_sensors:
-			#view = DistanceSensorDataView.create_view(self._display , sensor.get_distance_sensor())
-		#	if view is not None:
-		#	view._frame.place(x = 50, y = 50 ,width = 50, height = 50)
+        servos = device.get_servo_set()
+        for servo in servos:
+            print("servo")
+            view = ServoDataView.create_view(
+                self._display, servo, self._settings_key)
+            if view is not None:
+                view._frame.place(x=50, y=50)
 
-			#view = LuxSensorDataView.create_view(self._display , sensor.get_lux_sensor())
-			#view._frame.place(x = 150, y = 50 ,width = 50, height = 50)
+        current_sensors = device.get_current_sensors()
+        for sensor in current_sensors:
+            view = CurrentSensorDataView.create_view(
+                self._display, sensor, self._settings_key)
+            if view is not None:
+                view._frame.place(x=50, y=100)
+
+    # for sensor in vcln_4000_sensors:
+            # view = DistanceSensorDataView.create_view(self._display , sensor.get_distance_sensor())
+        # if view is not None:
+        # view._frame.place(x = 50, y = 50 ,width = 50, height = 50)
+
+            # view = LuxSensorDataView.create_view(self._display , sensor.get_lux_sensor())
+            # view._frame.place(x = 150, y = 50 ,width = 50, height = 50)
+
 
 """package de.hska.lat.ant.devices.legController;
 

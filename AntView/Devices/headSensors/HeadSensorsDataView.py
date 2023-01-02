@@ -4,24 +4,21 @@ from RoboView.Robot.component.sensor.generic.lux.view.LuxSensorDataView import L
 
 
 class HeadSensorsDataView(DeviceView):
-	def __init__(self, device) :
-		super().__init__( "Head Sensors Data", device, 100, 100 ,200, 200)
-		
+    def __init__(self, device):
+        super().__init__("Head Sensors Data", device, 100, 100, 200, 200)
 
-		self.make_display(device)
-		
+        self.make_display(device)
 
-	def make_display(self, device):
+    def make_display(self, device):
 
-		vcln_4000_sensors = device.get_vcnl_4000_set()
-		
-		for sensor in vcln_4000_sensors:
-			view = DistanceSensorDataView.create_view(self._display , sensor.get_distance_sensor(), self._settings_key )
+        vcln_4000_sensors = device.get_vcnl_4000_set()
 
-			view = LuxSensorDataView.create_view(self._display , sensor.get_lux_sensor(),  self._settings_key )
+        for sensor in vcln_4000_sensors:
+            view = DistanceSensorDataView.create_view(
+                self._display, sensor.get_distance_sensor(), self._settings_key)
 
-
-
+            view = LuxSensorDataView.create_view(
+                self._display, sensor.get_lux_sensor(),  self._settings_key)
 
 
 """

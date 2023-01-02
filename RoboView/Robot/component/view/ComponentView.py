@@ -2,103 +2,103 @@
 from tkinter import Frame, Label, Menu
 import customtkinter as ctk
 from RoboView.Robot.Viewer.RobotSettings import RobotSettings
- 
+
 
 class ComponentView:
-	def __init__(self, root, name, settings_key,  width, height):
+    def __init__(self, root, name, settings_key,  width, height):
 
-		self._settings_key = settings_key+"."+self.__class__.__name__+"."+name
+        self._settings_key = settings_key+"."+self.__class__.__name__+"."+name
 
-		self._frame = Frame(master = root, bg = "BLACK", width =300, borderwidth=2)
-		self._master = root
-		self._width = width
-		self._height = height
+        self._frame = Frame(master=root, bg="BLACK", width=300, borderwidth=2)
+        self._master = root
+        self._width = width
+        self._height = height
 
-		self._data_frame = Frame(master = self._frame, bg = "YELLOW")
-		
-		x_pos = RobotSettings.get_int(self._settings_key+".x_pos")
-		y_pos = RobotSettings.get_int(self._settings_key+".y_pos")
-		self._frame.place(x = x_pos, y = y_pos)
+        self._data_frame = Frame(master=self._frame, bg="YELLOW")
 
-		#self._display_name = RobotSettings.get_bool(self._settings_key+".display_name")
-		self._display_name = True
+        x_pos = RobotSettings.get_int(self._settings_key+".x_pos")
+        y_pos = RobotSettings.get_int(self._settings_key+".y_pos")
+        self._frame.place(x=x_pos, y=y_pos)
 
-		self._data_frame.bind("<Button-1>", self.mouse_pressed)
-		self._data_frame.bind("<ButtonRelease-1>", self.mouse_released)
-		self._data_frame.bind("<Leave>", self.mouse_released)
-	
-		self._data_frame.bind("<ButtonRelease-3>", self.show_context_menue)
-	
-		self.build_context_menue()
-		self._name = name
-		self._name_label = Label(self._frame, text=self._name, font=("Courier", 12))
-		self.draw()
+        # self._display_name = RobotSettings.get_bool(self._settings_key+".display_name")
+        self._display_name = True
+
+        self._data_frame.bind("<Button-1>", self.mouse_pressed)
+        self._data_frame.bind("<ButtonRelease-1>", self.mouse_released)
+        self._data_frame.bind("<Leave>", self.mouse_released)
+
+        self._data_frame.bind("<ButtonRelease-3>", self.show_context_menue)
+
+        self.build_context_menue()
+        self._name = name
+        self._name_label = Label(
+            self._frame, text=self._name, font=("Courier", 12))
+        self.draw()
+
+    def build_context_menue(self):
+        self._context_menue = Menu(self._frame, tearoff=0)
+        self._context_menue.add_command(
+            label="display name", command=self.on_display_name)
+        self._context_menue.add_command(
+            label="lock position", command=self.on_lock_position)
+        self._context_menue.add_separator()
+
+    def mouse_pressed(self, event):
+        self._origin_x = event.x
+        self._origin_y = event.y
+        self._data_frame.bind("<Motion>", self.mouse_motion)
+
+    def mouse_motion(self, event):
+        x = self._frame.winfo_x()
+        y = self._frame.winfo_y()
+        x = x - self._origin_x + event.x
+        y = y - self._origin_y + event.y
+
+        self._frame.place(x=x, y=y)
+
+        RobotSettings.set_key(self._settings_key+".x_pos", x)
+        RobotSettings.set_key(self._settings_key+".y_pos", y)
+
+    def mouse_released(self, event):
+        self._data_frame.unbind("<Motion>")
+
+    def show_context_menue(self, event):
+
+        try:
+            self._context_menue.tk_popup(event.x_root, event.y_root)
+        finally:
+            self._context_menue.grab_release()
+
+    def on_lock_position(self):
+        pass
+
+    def on_display_name(self):
+        if (self._display_name):
+            self._display_name = False
+        else:
+            self._display_name = True
+
+        RobotSettings.set_key(self._settings_key +
+                              ".display_name", self._display_name)
+        self.draw()
+
+    def draw(self):
+
+        height = self._height
+        width = self._width
+        y = 2
+        if self._display_name:
+            self._name_label.place(x=1, y=1, width=self._width, height=18)
+            y += 19
+        else:
+            self._name_label.place(x=1, y=-20, width=self._width, height=18)
+            pass
+
+        self._frame.place(width=width + 6, height=height + y + 6)
+        self._data_frame.place(
+            x=1, y=y, width=self._width, height=self._height)
 
 
-
-	def build_context_menue(self):
-		self._context_menue = Menu(self._frame, tearoff=0)
-		self._context_menue.add_command(label="display name", command=self.on_display_name) 
-		self._context_menue.add_command(label="lock position", command=self.on_lock_position) 
-		self._context_menue.add_separator()
-
-
-	def mouse_pressed(self,event):
-		self._origin_x = event.x
-		self._origin_y = event.y
-		self._data_frame.bind("<Motion>", self.mouse_motion)
-
-	def mouse_motion(self, event):
-		x = self._frame.winfo_x()
-		y = self._frame.winfo_y()
-		x = x - self._origin_x + event.x 
-		y = y - self._origin_y + event.y 
-
-		self._frame.place(x = x, y = y)
-        
-		RobotSettings.set_key(self._settings_key+".x_pos" ,x)
-		RobotSettings.set_key(self._settings_key+".y_pos", y)
-
-
-
-	def mouse_released(self,event):
-		self._data_frame.unbind("<Motion>")
-
-
-	def show_context_menue(self,event):
-
-		try:
-			self._context_menue.tk_popup(event.x_root, event.y_root)
-		finally:
-			self._context_menue.grab_release()
-
-	def on_lock_position(self):
-		pass
-
-	def on_display_name(self):
-		if (self._display_name): 
-			self._display_name = False
-		else: 
-			self._display_name = True
-
-		RobotSettings.set_key(self._settings_key+".display_name" ,self._display_name)		
-		self.draw()
-	
-
-	def draw(self):
-		
-		height = self._height
-		width = self._width
-		y = 2
-		if self._display_name: 
-			self._name_label.place(x = 1, y = 1, width = self._width, height=18 )
-			y += 19
-		else:
-			self._name_label.place(x = 1, y = -20, width = self._width, height=18)
-			pass
-
-		self._frame.place(width = width + 6 , height = height + y + 6)  
-		self._data_frame.place(x = 1, y = y ,width = self._width , height = self._height )
 """package de.hska.lat.robot.component.view;
 
 

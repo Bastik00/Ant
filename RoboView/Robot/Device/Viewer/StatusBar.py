@@ -6,18 +6,16 @@ from RoboView.Robot.Device.Viewer.CpuStatisticsView import CpuStatisticsView
 
 
 class StatusBar:
-	def __init__(self, root, device):
-		
-		self._frame = Frame(master = root, bg='grey18', borderwidth=1)
-		self._root = root
+    def __init__(self, root, device):
 
-		self._com_statistic_view = ComStatisticsView(self._frame, device)
-		self._cpu_statistic_view = CpuStatisticsView(self._frame, device)
-		self._device = device
-		self._cpu_statistic_view._frame.pack(side = LEFT, padx = 2, pady =2)
-		self._com_statistic_view._frame.pack( side = RIGHT, padx = 2, pady =2)
+        self._frame = Frame(master=root, bg='grey18', borderwidth=1)
+        self._root = root
 
-
+        self._com_statistic_view = ComStatisticsView(self._frame, device)
+        self._cpu_statistic_view = CpuStatisticsView(self._frame, device)
+        self._device = device
+        self._cpu_statistic_view._frame.pack(side=LEFT, padx=2, pady=2)
+        self._com_statistic_view._frame.pack(side=RIGHT, padx=2, pady=2)
 
 
 """package de.hska.lat.robot.device.viewer;

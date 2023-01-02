@@ -2,73 +2,81 @@
 from tkinter import TOP, LEFT, Frame, Label, Menu, W
 import customtkinter as ctk
 
+
 class ComStatisticsView:
-	def __init__(self, root, device):
-		self._frame = ctk.CTkFrame(master = root, fg_color='white', height =50, corner_radius=3)
-		self._root = root
-		self._device = device
-		self.build_view()
+    def __init__(self, root, device):
+        self._frame = ctk.CTkFrame(
+            master=root, fg_color='white', height=50, corner_radius=3)
+        self._root = root
+        self._device = device
+        self.build_view()
 
-		device.add_com_status_listener(self)
+        device.add_com_status_listener(self)
 
+    def build_view(self):
+        label_font = ctk.CTkFont()
 
-	def build_view(self):
-		label_font = ctk.CTkFont()
-  
-		label = ctk.CTkLabel(self._frame, text="COM", height=12, font=("Arial", 12), text_color='black')
-		label.pack(side=TOP)
+        label = ctk.CTkLabel(self._frame, text="COM",
+                             height=12, font=("Arial", 12), text_color='black')
+        label.pack(side=TOP)
 
-		label = ctk.CTkLabel(self._frame, text="rx :", font=label_font, text_color='black')
-		label.pack(side = LEFT, padx = 2)
-		self._rx_count = ctk.CTkLabel(self._frame, text=" - ", font=label_font, text_color='black')
-		self._rx_count.pack(side=LEFT, padx = (0,10))
+        label = ctk.CTkLabel(self._frame, text="rx :",
+                             font=label_font, text_color='black')
+        label.pack(side=LEFT, padx=2)
+        self._rx_count = ctk.CTkLabel(
+            self._frame, text=" - ", font=label_font, text_color='black')
+        self._rx_count.pack(side=LEFT, padx=(0, 10))
 
-		label = ctk.CTkLabel(self._frame, text="tx :", font=label_font, text_color='black')
-		label.pack(side = LEFT, padx = 2)
-		self._tx_count = ctk.CTkLabel(self._frame, text=" - ", font=label_font, text_color='black')
-		self._tx_count.pack(side=LEFT, padx = (0,10))
+        label = ctk.CTkLabel(self._frame, text="tx :",
+                             font=label_font, text_color='black')
+        label.pack(side=LEFT, padx=2)
+        self._tx_count = ctk.CTkLabel(
+            self._frame, text=" - ", font=label_font, text_color='black')
+        self._tx_count.pack(side=LEFT, padx=(0, 10))
 
-		label = ctk.CTkLabel(self._frame, text="lost :", font=label_font, text_color='black')
-		label.pack(side = LEFT, padx = 2)
-		self._lost_count = ctk.CTkLabel(self._frame, text=" - ", font=label_font, text_color='black')
-		self._lost_count.pack(side=LEFT, padx = (0,10))
-		
-		label = ctk.CTkLabel(self._frame, text="inv :", font=label_font, text_color='black')
-		label.pack(side = LEFT, padx = 2)
-		self._invalid_count = ctk.CTkLabel(self._frame, text=" - ", font=label_font, text_color='black')
-		self._invalid_count.pack(side=LEFT, padx = (0,10))
-		
-		self._frame.bind("<ButtonRelease-3>", self.mouse_released)
+        label = ctk.CTkLabel(self._frame, text="lost :",
+                             font=label_font, text_color='black')
+        label.pack(side=LEFT, padx=2)
+        self._lost_count = ctk.CTkLabel(
+            self._frame, text=" - ", font=label_font, text_color='black')
+        self._lost_count.pack(side=LEFT, padx=(0, 10))
 
-		self._context_menue = Menu(self._frame, tearoff=0)
-		self._context_menue.add_command(label="Clear com Statistic", command=self.on_clear_statistic) 
-  
+        label = ctk.CTkLabel(self._frame, text="inv :",
+                             font=label_font, text_color='black')
+        label.pack(side=LEFT, padx=2)
+        self._invalid_count = ctk.CTkLabel(
+            self._frame, text=" - ", font=label_font, text_color='black')
+        self._invalid_count.pack(side=LEFT, padx=(0, 10))
 
-	def mouse_released(self, event):
+        self._frame.bind("<ButtonRelease-3>", self.mouse_released)
 
-		try:
-			self._context_menue.tk_popup(event.x_root, event.y_root)
-		finally:
-			self._context_menue.grab_release()
+        self._context_menue = Menu(self._frame, tearoff=0)
+        self._context_menue.add_command(
+            label="Clear com Statistic", command=self.on_clear_statistic)
 
-	def on_clear_statistic(self):
-		self._device.remote_clear_com_statistics()
-		pass
+    def mouse_released(self, event):
 
+        try:
+            self._context_menue.tk_popup(event.x_root, event.y_root)
+        finally:
+            self._context_menue.grab_release()
 
+    def on_clear_statistic(self):
+        self._device.remote_clear_com_statistics()
+        pass
 
-	def com_status_changed(self, statistic):
-		rx_count = statistic.get_recived_messages()
-		self._rx_count['text'] = str(rx_count)
-		
-		tx_count = statistic.get_transfered_messages()
-		self._tx_count['text'] = str(tx_count)
+    def com_status_changed(self, statistic):
+        rx_count = statistic.get_recived_messages()
+        self._rx_count['text'] = str(rx_count)
 
-		lost_count = statistic.get_lost_messages()
-		self._lost_count['text'] =str(lost_count)
+        tx_count = statistic.get_transfered_messages()
+        self._tx_count['text'] = str(tx_count)
 
-		invalid_count = statistic.get_invalid_messages()
-		self._invalid_count['text'] =str(invalid_count)
+        lost_count = statistic.get_lost_messages()
+        self._lost_count['text'] = str(lost_count)
+
+        invalid_count = statistic.get_invalid_messages()
+        self._invalid_count['text'] = str(invalid_count)
 
 
 """
@@ -115,7 +123,6 @@ private void buildView()
 //	this.lostCount.setBounds(345, 5, 60, 20);
 	this.add(this.lostCount);
 }"""
-
 
 
 """package de.hska.lat.robot.device.viewer.control.comStatistics;

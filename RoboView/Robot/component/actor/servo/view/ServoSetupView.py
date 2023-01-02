@@ -7,110 +7,101 @@ from RoboView.Robot.component.view.ComponentSetupView import ComponentSetupView
 from RoboView.Robot.component.view.MissingComponentView import MissingComponentView
 
 
-
 class ServoSetupView(ComponentSetupView):
 
-	def __init__(self, root, servo, settings_key):
-		super().__init__(root, servo, settings_key, 310, 200)
+    def __init__(self, root, servo, settings_key):
+        super().__init__(root, servo, settings_key, 310, 200)
 
-		self._position_slider = Scale(self._data_frame, from_=-100, to=100, orient=HORIZONTAL,command=self.changePosition)
-		self._position_slider.place(x = 50, y = 10,  width=200, height=40)
+        self._position_slider = Scale(
+            self._data_frame, from_=-100, to=100, orient=HORIZONTAL, command=self.changePosition)
+        self._position_slider.place(x=50, y=10,  width=200, height=40)
 
+        min_pos_var = StringVar()
+        min_pos_var.set("0")
 
-		min_pos_var= StringVar()
-		min_pos_var.set("0")
+        self._min_Pos = Spinbox(self._frame, from_=-90, to=90, increment=1,
+                                textvariable=min_pos_var, width=10, command=self.changePosition)
+        self._min_Pos.place(x=5, y=30,  width=40, height=20)
 
-		self._min_Pos = Spinbox( self._frame, from_= -90, to=90,increment = 1, textvariable = min_pos_var, width = 10,command=self.changePosition)
-		self._min_Pos.place(x = 5, y = 30,  width=40, height=20)
+        max_pos_var = StringVar()
+        max_pos_var.set("0")
 
-		max_pos_var= StringVar()
-		max_pos_var.set("0")
+        self._max_Pos = Spinbox(
+            self._frame, from_=-90, to=90, increment=1, textvariable=max_pos_var, width=10)
+        self._max_Pos.place(x=260, y=30,  width=40, height=20)
 
-		self._max_Pos = Spinbox( self._frame, from_= -90, to=90,increment = 1, textvariable = max_pos_var, width = 10)
-		self._max_Pos.place(x = 260, y = 30,  width=40, height=20)
+        self._state = BooleanVar()
+        self._on_button = Checkbutton(
+            self._data_frame, text="on", variable=self._state, command=self.changeStatus)
+        self._on_button.place(x=5, y=70,  width=40, height=20)
 
+        self._state = BooleanVar()
+        self._on_button = Checkbutton(
+            self._data_frame, text="reverse", variable=self._state, command=self.changeStatus)
+        self._on_button.place(x=55, y=70,  width=60, height=20)
 
-		self._state = BooleanVar()
-		self._on_button = Checkbutton(self._data_frame, text="on", variable=self._state, command=self.changeStatus)
-		self._on_button.place(x = 5, y = 70,  width=40, height=20)
-	
-		self._state = BooleanVar()
-		self._on_button = Checkbutton(self._data_frame, text="reverse", variable=self._state, command=self.changeStatus)
-		self._on_button.place(x = 55, y = 70,  width=60, height=20)
+        offset_var = StringVar()
+        offset_var.set("0")
 
+        label = Label(self._data_frame, text="offset")
+        label.place(x=160, y=70,  width=80, height=15)
 
+        self._offset = Spinbox(
+            self._frame, from_=0, to=10000, increment=1, textvariable=offset_var, width=10)
+        self._offset.place(x=240, y=70,  width=60, height=20)
 
-		offset_var= StringVar()
-		offset_var.set("0")
+        offset_var = StringVar()
+        offset_var.set("0")
 
+        label = Label(self._data_frame, text="scale")
+        label.place(x=160, y=90,  width=80, height=15)
 
-		label = Label(self._data_frame, text="offset")
-		label.place(x = 160, y = 70,  width=80, height=15)
+        self._scale = Spinbox(self._frame, from_=0, to=20000,
+                              increment=1, textvariable=offset_var, width=10)
+        self._scale.place(x=240, y=90,  width=60, height=20)
 
-		self._offset = Spinbox( self._frame, from_= 0, to=10000,increment = 1, textvariable = offset_var, width = 10)
-		self._offset.place(x = 240, y = 70,  width=60, height=20)
+        offset_var = StringVar()
+        offset_var.set("0")
 
-		
-		offset_var= StringVar()
-		offset_var.set("0")
+        label = Label(self._data_frame, text="speed")
+        label.place(x=160, y=110,  width=80, height=15)
 
-		label = Label(self._data_frame, text="scale")
-		label.place(x = 160, y = 90,  width=80, height=15)
-
-		self._scale = Spinbox( self._frame, from_= 0, to=20000,increment = 1, textvariable = offset_var, width = 10)
-		self._scale.place(x = 240, y = 90,  width=60, height=20)
-
-
-
-		offset_var= StringVar()
-		offset_var.set("0")
-
-		label = Label(self._data_frame, text="speed")
-		label.place(x = 160, y = 110,  width=80, height=15)
-
-		self._speed = Spinbox( self._frame, from_= 0, to=52 ,increment = 0.28, textvariable = offset_var, width = 10)
-		self._speed.place(x = 240, y = 110,  width=60, height=20)
-
-
-#	self._device.remote_start_stream(index, int(int(self._period.get())/10))
+        self._speed = Spinbox(self._frame, from_=0, to=52,
+                              increment=0.28, textvariable=offset_var, width=10)
+        self._speed.place(x=240, y=110,  width=60, height=20)
 
 
+# self._device.remote_start_stream(index, int(int(self._period.get())/10))
 
 
-	def build_context_menue(self):
-		super().build_context_menue()
-		self._context_menue.add_command(label="set settings", command=self.on_set_settings) 
+    def build_context_menue(self):
+        super().build_context_menue()
+        self._context_menue.add_command(
+            label="set settings", command=self.on_set_settings)
 
+    def create_view(root, servo, settings_key):
 
-	def create_view(root, servo, settings_key):
+        if servo is not None:
+            view = ServoSetupView(root, servo, settings_key)
+        else:
+            view = MissingComponentView(DistanceSensor.__name__)
 
-		if servo is not None:
-			view = ServoSetupView(root, servo, settings_key)
-		else: 
-			view = MissingComponentView(DistanceSensor.__name__)
+        return view
 
-		return view
+    def changeStatus(self):
 
+        if self._state.get():
+            self._actor.remote_servo_on()
+        else:
+            self._actor.remote_servo_off()
 
+    def changePosition(self, position):
+        position = float(position)
+        position = Radiant.convert_degree_to_radiant(position)
+        self._actor.remote_move_servo_to(position)
 
-
-	def changeStatus(self):
-
-		if self._state.get():
-			self._actor.remote_servo_on()
-		else:
-			self._actor.remote_servo_off()
-
-
-	def changePosition(self, position):
-		position = float(position)
-		position = Radiant.convert_degree_to_radiant(position)
-		self._actor.remote_move_servo_to(position)
-
-
-
-	def on_set_settings(self):
-		pass
+    def on_set_settings(self):
+        pass
 
 
 """package de.hska.lat.robot.component.servo.view;

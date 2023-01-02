@@ -7,43 +7,41 @@ from RoboView.Robot.component.view.SensorDataView import SensorDataView
 
 class DistanceSensorDataView(SensorDataView):
 
-	def __init__(self, root, sensor, settings_key):
-		super().__init__(root, sensor, settings_key, 100, 30)
-		self._value_label = Label(self._data_frame, text="")
-		self._value_label.place(x = 10, y = 5,  width=80, height=15)
-		self._value = self._sensor.get_distance_value()
-		self._value.add_listener(self.update)
-		self.update()
+    def __init__(self, root, sensor, settings_key):
+        super().__init__(root, sensor, settings_key, 100, 30)
+        self._value_label = Label(self._data_frame, text="")
+        self._value_label.place(x=10, y=5,  width=80, height=15)
+        self._value = self._sensor.get_distance_value()
+        self._value.add_listener(self.update)
+        self.update()
 
+    def build_context_menue(self):
+        super().build_context_menue()
+        self._context_menue.add_command(
+            label="refresh distance", command=self.on_refresh)
 
+    def create_view(root, distance_sensor, settings_key):
 
-	def build_context_menue(self):
-		super().build_context_menue()
-		self._context_menue.add_command(label="refresh distance", command=self.on_refresh) 
+        if distance_sensor is not None:
+            view = DistanceSensorDataView(root, distance_sensor, settings_key)
+        else:
+            view = MissingComponentView(DistanceSensor.__name__)
 
+        return view
 
-	def create_view(root, distance_sensor, settings_key ):
+    def update(self):
 
-		if distance_sensor is not None:
-			view = DistanceSensorDataView(root, distance_sensor, settings_key)
-		else: 
-			view = MissingComponentView(DistanceSensor.__name__)
+        if self._value.is_valid():
+            string = str(self._value.get_value())
+            string += " mm"
+        else:
+            string = "- mm"
 
-		return view
+        self._value_label['text'] = string
 
+    def on_refresh(self):
+        self._sensor.remote_get_distance()
 
-	def update(self):
-	
-		if self._value.is_valid():
-			string = str(self._value.get_value())
-			string += " mm"
-		else:
-			string = "- mm"
-
-		self._value_label['text'] = string
-
-	def on_refresh(self):
-		self._sensor.remote_get_distance()
 
 """
 package de.hska.lat.robot.component.generic.distance.view;
