@@ -1,46 +1,48 @@
 
-from tkinter import LEFT, Frame, Label, Menu
-
+from tkinter import TOP, LEFT, Frame, Label, Menu, W
+import customtkinter as ctk
 
 class ComStatisticsView:
 	def __init__(self, root, device):
-		self._frame = Frame(master = root, bg = "WHITE", borderwidth=0, height =50 )
+		self._frame = ctk.CTkFrame(master = root, fg_color='white', height =50, corner_radius=3)
 		self._root = root
 		self._device = device
-
 		self.build_view()
 
 		device.add_com_status_listener(self)
 
 
 	def build_view(self):
-		label = Label(self._frame, text="COM", font=("Courier", 12))
-		label.pack(side='top')
+		label_font = ctk.CTkFont()
+  
+		label = ctk.CTkLabel(self._frame, text="COM", height=12, font=("Arial", 12), text_color='black')
+		label.pack(side=TOP)
 
-		label = Label(self._frame, text="rx :", font=("Courier", 12))
-		label.pack(side = LEFT, padx = 2 , pady = 0)
-		self._rx_count = Label(self._frame, text="-", font=("Courier", 12))
-		self._rx_count.pack(side=LEFT, padx = 2 , pady = 0)
+		label = ctk.CTkLabel(self._frame, text="rx :", font=label_font, text_color='black')
+		label.pack(side = LEFT, padx = 2)
+		self._rx_count = ctk.CTkLabel(self._frame, text=" - ", font=label_font, text_color='black')
+		self._rx_count.pack(side=LEFT, padx = (0,10))
 
-		label = Label(self._frame, text="tx :" , font=("Courier", 12))
-		label.pack(side = LEFT, padx = 2 , pady = 0)
-		self._tx_count = Label(self._frame, text="-", font=("Courier", 12))
-		self._tx_count.pack(side=LEFT, padx = 2 , pady = 0)
+		label = ctk.CTkLabel(self._frame, text="tx :", font=label_font, text_color='black')
+		label.pack(side = LEFT, padx = 2)
+		self._tx_count = ctk.CTkLabel(self._frame, text=" - ", font=label_font, text_color='black')
+		self._tx_count.pack(side=LEFT, padx = (0,10))
 
-		label = Label(self._frame, text="lost :" , font=("Courier", 12))
-		label.pack(side = LEFT, padx = 2 , pady = 0)
-		self._lost_count = Label(self._frame, text="-", font=("Courier", 12))
-		self._lost_count.pack(side=LEFT, padx = 2 , pady = 0)
+		label = ctk.CTkLabel(self._frame, text="lost :", font=label_font, text_color='black')
+		label.pack(side = LEFT, padx = 2)
+		self._lost_count = ctk.CTkLabel(self._frame, text=" - ", font=label_font, text_color='black')
+		self._lost_count.pack(side=LEFT, padx = (0,10))
 		
-		label = Label(self._frame, text="inv :" , font=("Courier", 12))
-		label.pack(side = LEFT, padx = 2 , pady = 0)
-		self._invalid_count = Label(self._frame, text="-", font=("Courier", 12))
-		self._invalid_count.pack(side=LEFT, padx = 2 , pady = 0)
+		label = ctk.CTkLabel(self._frame, text="inv :", font=label_font, text_color='black')
+		label.pack(side = LEFT, padx = 2)
+		self._invalid_count = ctk.CTkLabel(self._frame, text=" - ", font=label_font, text_color='black')
+		self._invalid_count.pack(side=LEFT, padx = (0,10))
 		
 		self._frame.bind("<ButtonRelease-3>", self.mouse_released)
 
 		self._context_menue = Menu(self._frame, tearoff=0)
 		self._context_menue.add_command(label="Clear com Statistic", command=self.on_clear_statistic) 
+  
 
 	def mouse_released(self, event):
 

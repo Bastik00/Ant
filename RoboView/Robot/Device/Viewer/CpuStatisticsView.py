@@ -1,41 +1,45 @@
 
-from tkinter import  LEFT, RIGHT, TOP, Button, Frame, Label, Menu
+from tkinter import  LEFT, RIGHT, TOP, Button, Frame, Label, Menu, W, E
+import customtkinter as ctk
 
 class CpuStatisticsView:
 	def __init__(self, root, device):
-		self._frame = Frame(master = root, bg = "WHITE", borderwidth=1 , height = 50, width = 300  )
+		self._frame = ctk.CTkFrame(master = root, fg_color='white', height = 50, corner_radius=3)
 		self._root = root
 		self._device = device
 		self.build_view()
 
 		device.add_cpu_status_listener(self)
 
+
 	def build_view(self):
-		label = Label(self._frame  ,text="CPU")
+		label_font = ctk.CTkFont()
+  
+		label = ctk.CTkLabel(self._frame  ,text="CPU", height=12, font=("Arial", 12), text_color='black')
 		label.pack(side = TOP)
 
-		label = Button(self._frame  ,text="clear")
-		label.pack(side = RIGHT)
-
-		label = Label(self._frame, text="last :", font=("Courier", 12))
+		label = ctk.CTkLabel(self._frame, text="last :", font=label_font, text_color='black')
 		label.pack(side = LEFT, padx = 2 )
-		self._last_load = Label(self._frame, text="-", font=("Courier", 12))
-		self._last_load.pack(side = LEFT, padx = 2 )
+		self._last_load = ctk.CTkLabel(self._frame, text=" - ", font=label_font, text_color='black')
+		self._last_load.pack(side = LEFT,  padx = (0,10))
 
-		label = Label(self._frame, text="min :", font=("Courier", 12))
+		label = ctk.CTkLabel(self._frame, text="min :", font=label_font, text_color='black')
 		label.pack(side = LEFT, padx = 2 )
-		self._min_load = Label(self._frame, text="-", font=("Courier", 12))
-		self._min_load.pack(side = LEFT, padx = 2 )
+		self._min_load = ctk.CTkLabel(self._frame, text=" - ", font=label_font, text_color='black')
+		self._min_load.pack(side = LEFT,  padx = (0,10))
 
-		label = Label(self._frame, text="max :", font=("Courier", 12))
+		label = ctk.CTkLabel(self._frame, text="max :", font=label_font, text_color='black')
 		label.pack(side = LEFT , padx = 2)
-		self._max_load = Label(self._frame, text="-", font=("Courier", 12))
-		self._max_load.pack(side = LEFT, padx = 2 )
+		self._max_load = ctk.CTkLabel(self._frame, text=" - ", font=label_font, text_color='black')
+		self._max_load.pack(side = LEFT, padx = (0,10))
 
 		self._frame.bind("<ButtonRelease-3>", self.mouse_released)
 
 		self._context_menue = Menu(self._frame, tearoff=0)
 		self._context_menue.add_command(label="Clear cpu Statistic", command=self.on_clear_statistic) 
+
+		label = ctk.CTkButton(self._frame ,text="clear", width=30, fg_color='lightgrey', text_color='black', hover_color='grey')
+		label.pack(side = RIGHT, padx = 2)
 
 
 	def mouse_released(self, event):
