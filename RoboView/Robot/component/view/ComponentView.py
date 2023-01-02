@@ -30,9 +30,7 @@ class ComponentView:
 		self._data_frame.bind("<ButtonRelease-3>", self.show_context_menue)
 	
 		self.build_context_menue()
-
 		self._name = name
-
 		self._name_label = Label(self._frame, text=self._name, font=("Courier", 12))
 		self.draw()
 
@@ -75,11 +73,9 @@ class ComponentView:
 			self._context_menue.grab_release()
 
 	def on_lock_position(self):
-		#self._device.remote_clear_cpu_statistics()
 		pass
 
 	def on_display_name(self):
-		#self._frame.place( width=100, height=100)
 		if (self._display_name): 
 			self._display_name = False
 		else: 
@@ -95,10 +91,10 @@ class ComponentView:
 		width = self._width
 		y = 2
 		if self._display_name: 
-			self._name_label.place(x = 1, y = 1, width = self._width, height=15 )
-			y += 16
+			self._name_label.place(x = 1, y = 1, width = self._width, height=18 )
+			y += 19
 		else:
-			self._name_label.place(x = 1, y = -17, width = self._width, height=15)
+			self._name_label.place(x = 1, y = -20, width = self._width, height=18)
 			pass
 
 		self._frame.place(width = width + 6 , height = height + y + 6)  

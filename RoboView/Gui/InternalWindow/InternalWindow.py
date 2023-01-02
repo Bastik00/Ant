@@ -90,7 +90,7 @@ class InternalWindow():
         y_size = self._frame.winfo_height()
 
         self._title._canvas.place(height=30, width = x_size -27 , x=0, y = 0)
-        self._resizer._canvas.place(height=20, width = 20, x=x_size-22, y=y_size-22)
+        self._resizer._canvas.place(height=22, width = 22, x=x_size-24, y=y_size-24)
         self._closer._canvas.place(height=30, width = 30, x=x_size-30, y = 0)
         
 

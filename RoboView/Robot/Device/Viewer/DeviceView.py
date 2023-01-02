@@ -26,13 +26,13 @@ class DeviceView(InternalWindow):
 		y_size = self._frame.winfo_height()
 
 		if self._status_bar is not None:
-			self._status_bar._frame.place(height=50, width = x_size - 23, x = 0, y = y_size - 50)
+			self._status_bar._frame.place(height=50, width = x_size - 24, x = 0, y = y_size - 50)
    
 		if self._tool_bar is not None:
 			self._tool_bar._frame.place(height=37, width = x_size, x = 0, y = 24)
    
 		if self._display is not None:
-			self._display.place(height=y_size - 110 , width = x_size - 3, x = 1, y = 65)
+			self._display.place(height=y_size - 90 , width = x_size - 3, x = 1, y = 65)
 	def set_robot(self, robot):
 		pass
 

@@ -10,8 +10,8 @@ class ServoControlView(ActorControlView):
 
 	def __init__(self, root, servo, settings_key):
 		super().__init__(root, servo, settings_key, 210, 100)
-	#	self._value_label = Label(self._data_frame, text="0°", font=("Courier", 12))
-	#	self._value_label.place(x = 1, y = 2,  width=80, height=15)
+		#self._value_label = Label(self._data_frame, text="0°", font=("Courier", 12))
+		#self._value_label.place(x = 1, y = 2,  width=80, height=15)
 
 
 		self._position_slider = Scale(self._data_frame, from_=-100, to=100, orient=HORIZONTAL,command=self.changePosition)
