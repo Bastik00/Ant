@@ -18,15 +18,13 @@ class LegControllersDataView(DeviceView):
             print("servo")
             view = ServoDataView.create_view(
                 self._display, servo, self._settings_key)
-            if view is not None:
-                view._frame.place(x=50, y=50)
+
 
         current_sensors = device.get_current_sensors()
         for sensor in current_sensors:
             view = CurrentSensorDataView.create_view(
                 self._display, sensor, self._settings_key)
-            if view is not None:
-                view._frame.place(x=50, y=100)
+
 
     # for sensor in vcln_4000_sensors:
             # view = DistanceSensorDataView.create_view(self._display , sensor.get_distance_sensor())

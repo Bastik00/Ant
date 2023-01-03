@@ -9,8 +9,8 @@ class ComponentView:
 
         self._settings_key = settings_key+"."+self.__class__.__name__+"."+name
 
-        self._frame = ctk.CTkFrame(
-            master=root, fg_color="BLACK", corner_radius=3)
+        self._frame = Frame(
+            master=root, bg="grey")
         self._master = root
         self._width = width
         self._height = height
