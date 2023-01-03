@@ -90,6 +90,7 @@ class InternalWindow():
         self._resizer._canvas.place(
             height=22, width=22, x=x_size-24, y=y_size-24)
         self._closer._canvas.place(height=30, width=30, x=x_size-30, y=0)
+        #self._minimizer._canvas.place(height=30, width)
         
 
     def set_min_dimension(self, new_min_x, new_min_y):
@@ -122,8 +123,10 @@ class InternalWindow():
         self._window_frame.pack()
         
     def hideWindow(self):
-         self._window.wm_deiconify()
+        self._window.wm_deiconify()
           
+    def minimizeWindow(self):
+        self._frame.place(x=x, y=y, width=width, height=height)
 
 """
 package de.hska.lat.robot.displayFrame;

@@ -21,13 +21,24 @@ class RobotViewer:
 		
 		RobotSettings.set_file_name(robot.get_name() + ".pkl")
 		print('Set file name: {}'.format(robot.get_name()))
-		RobotSettings.load_settings()
+		self._settings_key = self.__class__.__name__
 
-		self._frame.geometry("1424x776")
+		self._x_pos = 10
+		self._y_pos = 10
+		self._x_size = 1424
+		self._y_size = 776
+
+		self._frame.geometry("{}x{}+{}+{}".format(self._x_size, self._y_size, self._x_pos, self._y_pos))
+		
+		RobotSettings.set_key(self._settings_key+".x_pos", self._x_pos)
+		RobotSettings.set_key(self._settings_key+".y_pos", self._y_pos)
+		RobotSettings.set_key(self._settings_key+".x_size", self._x_size)
+		RobotSettings.set_key(self._settings_key+".y_size", self._y_size)
 		
 		ctk.set_appearance_mode("Dark")
 		self._robot = robot
 		self.build_window()
+		RobotSettings.load_settings()
 
 	def build_window(self):
 		
@@ -42,6 +53,7 @@ class RobotViewer:
 
 		self._frame.config(menu=menu_bar)
 
+
 		self._frame.mainloop()
 
 		"""		
@@ -51,7 +63,7 @@ class RobotViewer:
 			sleep(1)
 		"""
 
-		self.load_config()
+		#self.load_config()
 		pass
 
 

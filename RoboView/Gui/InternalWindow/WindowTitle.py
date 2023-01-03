@@ -13,11 +13,9 @@ class WindowTitle():
         self._name = name
         self._text = self._canvas.create_text(
             10, 15, text=self._name,  fill='WHITE', anchor='w', font=('Helvetica', '15', 'bold'))
-        self._canvas.bind("<ButtonRelease-3>", self.extractWindow)
+        self._canvas.bind("<ButtonRelease-3>", self.minimizeWindow)
         self._canvas.bind("<ButtonRelease-2>", self.hideWindow)
         
-        print("Master: {}".format(name))
-        print("Frame: {}".format(root))
 
     def rename(self, new_name):
         self._name = new_name
@@ -39,6 +37,9 @@ class WindowTitle():
         
     def hideWindow(self, event):
         self._master.hideWindow()
+        
+    def minimizeWindow(self, event):
+        self._master.minimizeWindow()
         
 
 

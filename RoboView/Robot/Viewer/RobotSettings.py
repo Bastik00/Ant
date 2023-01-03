@@ -53,7 +53,7 @@ class RobotSettings:
         print('----------Save Settings------------')
         with open(RobotSettings._file_name, 'wb') as f:
             pickle.dump(RobotSettings._settings, f)
-            print(RobotSettings._settings)
+            #print(RobotSettings._settings)
             
         
     def load_settings():  
@@ -61,4 +61,4 @@ class RobotSettings:
         if exists(RobotSettings._file_name): 
             with open(RobotSettings._file_name, 'rb') as f:
                 RobotSettings._settings = pickle.load(f)
-                print(RobotSettings._settings)
+                #print(RobotSettings._settings)
