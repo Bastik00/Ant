@@ -5,7 +5,7 @@ from RoboView.Robot.component.actor.led.view.LedControlView import LedControlVie
 
 class LegSensorsControlView(DeviceView):
 	def __init__(self, device) :
-		super().__init__( "Leg Sensors Control" , device, 100, 100 ,200, 200)
+		super().__init__( "Leg Sensors Control" , device)
 		
 		self.make_display(device)
 		

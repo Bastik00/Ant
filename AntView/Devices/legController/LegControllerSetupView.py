@@ -5,9 +5,7 @@ from RoboView.Robot.component.actor.servo.view.ServoSetupView import ServoSetupV
 
 class LegControllerSetupView(DeviceView):
 	def __init__(self, device) :
-		super().__init__( "Leg Controller Setup", device, 100, 100 ,200, 200)
-		
-
+		super().__init__( "Leg Controller Setup", device)
 		self.make_display(device)
 		
 

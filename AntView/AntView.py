@@ -49,6 +49,7 @@ class AntView(RobotViewer):
                           command=self.show_leg_controller_setup)
         menue_bar.add_cascade(label="Setup View", menu=menue)
 
+# data view
     def show_data_hub_data(self):
         print("show Data hub data")
         device = self._robot.get_data_hub()

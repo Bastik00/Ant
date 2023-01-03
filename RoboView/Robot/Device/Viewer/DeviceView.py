@@ -7,13 +7,13 @@ from RoboView.Robot.Device.Viewer.ToolBar import ToolBar
 
 
 class DeviceView(InternalWindow):
-    def __init__(self, name, device, x_pos, y_pos, x_size, y_size):
+    def __init__(self, name, device):
 
         self._tool_bar = None
         self._display = None
         self._status_bar = None
 
-        super().__init__(name, x_pos, y_pos, x_size, y_size)
+        super().__init__(name)
 
         self._tool_bar = ToolBar(self._frame, device)
         self._display = Frame(self._frame, bg="gray", borderwidth=1)

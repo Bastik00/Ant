@@ -5,7 +5,7 @@ from RoboView.Robot.component.actor.servo.view.ServoControlView import ServoCont
 
 class LegControllersControlView(DeviceView):
 	def __init__(self, device) :
-		super().__init__( "Leg Controller Control", device, 100, 100 ,200, 200)
+		super().__init__( "Leg Controller Control", device)
 		
 
 		self.make_display(device)
@@ -16,8 +16,6 @@ class LegControllersControlView(DeviceView):
 		servos = device.get_servo_set()
 		for servo in servos:
 			view = ServoControlView.create_view(self._display , servo, self._settings_key)
-			#if view is not None:
-			#	view._frame.place(x = 50, y = 50)
 				
 """				package de.hska.lat.ant.devices.legController;
 

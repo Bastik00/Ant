@@ -1,6 +1,6 @@
 
 
-from tkinter import Frame
+from tkinter import Frame, Button, Toplevel
 import customtkinter as ctk
 from RoboView.Gui.InternalWindow.WindowCloser import WindowCloser
 from RoboView.Gui.InternalWindow.WindowResizer import WindowResizer
@@ -11,7 +11,8 @@ from RoboView.Robot.Viewer.RobotSettings import RobotSettings
 
 class InternalWindow():
 
-    def __init__(self, name, x_pos, y_pos, x_size, y_size):
+    def __init__(self, name):
+        
         self._frame = Frame(bg="GRAY", borderwidth=1, relief='solid')
 
         self._settings_key = self.__class__.__name__
@@ -19,26 +20,27 @@ class InternalWindow():
         self._min_width = 200
         self._min_height = 150
 
-        x_pos = RobotSettings.get_int(self._settings_key+".x_pos")
-        y_pos = RobotSettings.get_int(self._settings_key+".y_pos")
-        x_size = RobotSettings.get_int(self._settings_key+".x_size")
-        y_size = RobotSettings.get_int(self._settings_key+".y_size")
+        self._x_pos = RobotSettings.get_int(self._settings_key+".x_pos")
+        self._y_pos = RobotSettings.get_int(self._settings_key+".y_pos")
+        self._x_size = RobotSettings.get_int(self._settings_key+".x_size")
+        self._y_size = RobotSettings.get_int(self._settings_key+".y_size")
 
-        if x_size < self._min_width:
-            x_size = self._min_width
+        if self._x_size < self._min_width:
+            self._x_size = self._min_width
 
-        if y_size < self._min_height:
-            y_size = self._min_height
+        if self._y_size < self._min_height:
+            self._y_size = self._min_height
 
-        self._frame.place(height=y_size, width=x_size, x=x_pos, y=y_pos)
+        self._frame.place(height=self._y_size, width=self._x_size, x=self._x_pos, y=self._y_pos)
+        
 
-        self._title = WindowTitle(self._frame, self)
+        self._title = WindowTitle(self._frame, self, name)
         self._title.rename(name)
-
+        
         self._resizer = WindowResizer(self._frame, self)
         self._closer = WindowCloser(self._frame, self)
-
         self.resize_window()
+        self._window = None
 
     def move(self, x_delta, y_delta):
         x = self._frame.winfo_x()
@@ -88,6 +90,7 @@ class InternalWindow():
         self._resizer._canvas.place(
             height=22, width=22, x=x_size-24, y=y_size-24)
         self._closer._canvas.place(height=30, width=30, x=x_size-30, y=0)
+        
 
     def set_min_dimension(self, new_min_x, new_min_y):
         self._min_width = new_min_x
@@ -109,7 +112,18 @@ class InternalWindow():
 
     def on_closing(self):
         self.save_bounds()
-
+    
+    def extractWindow(self):
+        self._window = Toplevel(bg="GRAY", borderwidth=1, relief='solid')
+        self._window.geometry("{}x{}+{}+{}".format(self._x_size, self._y_size, self._x_pos, self._y_pos))
+        self._window.title(self._title._name)
+        self._window.withdraw()
+        self._window_frame = Frame(self._window)
+        self._window_frame.pack()
+        
+    def hideWindow(self):
+         self._window.wm_deiconify()
+          
 
 """
 package de.hska.lat.robot.displayFrame;
