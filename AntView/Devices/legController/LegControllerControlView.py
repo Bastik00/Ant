@@ -4,8 +4,8 @@ from RoboView.Robot.component.actor.servo.view.ServoControlView import ServoCont
 
 
 class LegControllersControlView(DeviceView):
-	def __init__(self, device) :
-		super().__init__( "Leg Controller Control", device)
+	def __init__(self, device, window_bar) :
+		super().__init__( "Leg Controller Control", device, window_bar)
 		
 
 		self.make_display(device)

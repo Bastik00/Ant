@@ -8,7 +8,7 @@ import customtkinter as ctk
 
 from RoboView.Robot.Connection.Serial.SerialConnectionView import SerialConnectionView
 from RoboView.Robot.Viewer.RobotSettings import RobotSettings
-
+from RoboView.Robot.Viewer.WindowBar import WindowBar
 
 
 
@@ -35,10 +35,13 @@ class RobotViewer:
 		RobotSettings.set_key(self._settings_key+".x_size", self._x_size)
 		RobotSettings.set_key(self._settings_key+".y_size", self._y_size)
 		
+		RobotSettings.load_settings()
+		
 		ctk.set_appearance_mode("Dark")
 		self._robot = robot
+		self._window_bar = WindowBar(self._frame)
+		
 		self.build_window()
-		RobotSettings.load_settings()
 
 	def build_window(self):
 		
@@ -52,7 +55,6 @@ class RobotViewer:
 		self.make_settings_menue(menu_bar)
 
 		self._frame.config(menu=menu_bar)
-
 
 		self._frame.mainloop()
 

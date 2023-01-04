@@ -8,10 +8,12 @@ from RoboView.Gui.InternalWindow.WindowResizer import WindowResizer
 from RoboView.Gui.InternalWindow.WindowTitle import WindowTitle
 from RoboView.Robot.Viewer.RobotSettings import RobotSettings
 
+from RoboView.Robot.Viewer.WindowBar import WindowBar
+
 
 class InternalWindow():
 
-    def __init__(self, name):
+    def __init__(self, name, window_bar):
         
         self._frame = Frame(bg="GRAY", borderwidth=1, relief='solid')
 
@@ -32,26 +34,27 @@ class InternalWindow():
             self._y_size = self._min_height
 
         self._frame.place(height=self._y_size, width=self._x_size, x=self._x_pos, y=self._y_pos)
-        
 
         self._title = WindowTitle(self._frame, self, name)
-        self._title.rename(name)
         
         self._resizer = WindowResizer(self._frame, self)
         self._closer = WindowCloser(self._frame, self)
         self.resize_window()
         self._window = None
+        self._window_bar = window_bar
+        
 
     def move(self, x_delta, y_delta):
+        self._frame.lift()
         x = self._frame.winfo_x()
         y = self._frame.winfo_y()
         new_x = x - x_delta
         new_y = y - y_delta
         if (new_x > 0):
-            x = x - x_delta
+            self._x_pos = x - x_delta
         if (new_y > 0):
-            y = y - y_delta
-        self._frame.place(x=x, y=y)
+            self._y_pos = y - y_delta
+        self._frame.place(x=self._x_pos, y=self._y_pos)
 
         RobotSettings.set_key(self._settings_key+".x_pos", x)
         RobotSettings.set_key(self._settings_key+".y_pos", y)
@@ -70,10 +73,10 @@ class InternalWindow():
         if height < self._min_height:
             height = self._min_height
 
-        x = self._frame.winfo_x()
-        y = self._frame.winfo_y()
+        self._x_size = self._frame.winfo_x()
+        self._y_size = self._frame.winfo_y()
 
-        self._frame.place(x=x, y=y, width=width, height=height)
+        self._frame.place(x=self._x_size, y=self._y_size, width=width, height=height)
 
         RobotSettings.set_key(self._settings_key+".x_size", width)
         RobotSettings.set_key(self._settings_key+".y_size", height)
@@ -81,7 +84,7 @@ class InternalWindow():
         self.resize_window()
 
     def resize_window(self):
-
+        self._frame.lift()
         self._frame.update()
         x_size = self._frame.winfo_width()
         y_size = self._frame.winfo_height()
@@ -90,7 +93,6 @@ class InternalWindow():
         self._resizer._canvas.place(
             height=22, width=22, x=x_size-24, y=y_size-24)
         self._closer._canvas.place(height=30, width=30, x=x_size-30, y=0)
-        #self._minimizer._canvas.place(height=30, width)
         
 
     def set_min_dimension(self, new_min_x, new_min_y):
@@ -114,19 +116,32 @@ class InternalWindow():
     def on_closing(self):
         self.save_bounds()
     
-    def extractWindow(self):
+    def extract_window(self):
         self._window = Toplevel(bg="GRAY", borderwidth=1, relief='solid')
         self._window.geometry("{}x{}+{}+{}".format(self._x_size, self._y_size, self._x_pos, self._y_pos))
-        self._window.title(self._title._name)
-        self._window.withdraw()
+        self._window.title(self._title._name)        
         self._window_frame = Frame(self._window)
         self._window_frame.pack()
         
-    def hideWindow(self):
+    def hide_toplevel_window(self):
+        #self._window.withdraw()
         self._window.wm_deiconify()
-          
-    def minimizeWindow(self):
-        self._frame.place(x=x, y=y, width=width, height=height)
+        
+    def hide_window(self):
+        RobotSettings.set_key(self._settings_key+".visible", False)
+        self._frame.place(x=-10000, y=-10000)
+    
+    def show_window(self):
+        print('showWindow{}'.format(self._title._name))
+        RobotSettings.set_key(self._settings_key+".visible", True)
+        
+        self._frame.place(x=self._x_pos, y=self._y_pos)
+        
+    def minimize_window(self):
+        self.hide_window()
+        self._window_bar.add_window(self)
+        
+
 
 """
 package de.hska.lat.robot.displayFrame;

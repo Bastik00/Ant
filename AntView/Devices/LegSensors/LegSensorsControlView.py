@@ -4,8 +4,8 @@ from RoboView.Robot.component.actor.led.view.LedControlView import LedControlVie
 
 
 class LegSensorsControlView(DeviceView):
-	def __init__(self, device) :
-		super().__init__( "Leg Sensors Control" , device)
+	def __init__(self, device, window_bar) :
+		super().__init__( "Leg Sensors Control" , device, window_bar)
 		
 		self.make_display(device)
 		

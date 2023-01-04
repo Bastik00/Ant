@@ -6,8 +6,8 @@ from RoboView.Robot.component.sensor.generic.lux.view.LuxSensorDataView import L
 
 
 class LegSensorsDataView(DeviceView):
-	def __init__(self, device) :
-		super().__init__( "Leg Sensors Data", device)
+	def __init__(self, device, window_bar) :
+		super().__init__( "Leg Sensors Data", device, window_bar)
 		
 		self.make_display(device)
 

@@ -13,8 +13,9 @@ class WindowTitle():
         self._name = name
         self._text = self._canvas.create_text(
             10, 15, text=self._name,  fill='WHITE', anchor='w', font=('Helvetica', '15', 'bold'))
-        self._canvas.bind("<ButtonRelease-3>", self.minimizeWindow)
-        self._canvas.bind("<ButtonRelease-2>", self.hideWindow)
+        self._canvas.bind("<ButtonRelease-3>", self.minimize_window)
+        self._canvas.bind("<ButtonRelease-2>", self.hide_window)
+        
         
 
     def rename(self, new_name):
@@ -32,14 +33,13 @@ class WindowTitle():
     def mouse_motion(self, event):
         self._master.move(self._origin_x - event.x, self._origin_y - event.y)
         
-    def extractWindow(self, event):
-        self._master.extractWindow()
+    def extract_window(self, event):
+        self._master.extract_window()
         
-    def hideWindow(self, event):
-        self._master.hideWindow()
-        
-    def minimizeWindow(self, event):
-        self._master.minimizeWindow()
-        
+    def hide_window(self, event):
+        self._master.hide_window()
+    
+    def minimize_window(self, event):
+        self._master.minimize_window()
 
 
