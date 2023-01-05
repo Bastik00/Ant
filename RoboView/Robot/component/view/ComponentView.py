@@ -10,13 +10,13 @@ class ComponentView:
         self._settings_key = settings_key+"."+self.__class__.__name__+"."+name
 
         self._frame = Frame(
-            master=root, bg="grey")
+            master=root, bg="darkgrey")
         self._master = root
         self._width = width
         self._height = height
 
         self._data_frame = ctk.CTkFrame(
-            master=self._frame, fg_color="Black", corner_radius=3)
+            master=self._frame, fg_color="darkgrey", corner_radius=3)
 
         x_pos = RobotSettings.get_int(self._settings_key+".x_pos")
         y_pos = RobotSettings.get_int(self._settings_key+".y_pos")
@@ -34,7 +34,7 @@ class ComponentView:
         self.build_context_menue()
         self._name = name
         self._name_label = ctk.CTkLabel(
-            self._frame, text=self._name, font=("Courier", 12), fg_color='grey', corner_radius=3)
+            self._frame, text=self._name, font=("Courier", 12), fg_color='darkblue', corner_radius=3)
         self._name_label.bind("<Button-1>", self.mouse_pressed)
         self._name_label.bind("<ButtonRelease-1>", self.mouse_released)
         self.draw()

@@ -1,33 +1,35 @@
-
-
 from RoboView.Robot.Device.Viewer.DeviceView import DeviceView
 from RoboView.Robot.component.sensor.generic.distance.view.DistanceSensorDataView import DistanceSensorDataView
 from RoboView.Robot.component.sensor.generic.lux.view.LuxSensorDataView import LuxSensorDataView
+from RoboView.Robot.Viewer.RobotSettings import RobotSettings
 
 
 class LegSensorsDataView(DeviceView):
-	def __init__(self, device, window_bar) :
-		super().__init__( "Leg Sensors Data", device, window_bar)
-		
-		self.make_display(device)
+    def __init__(self, device, window_bar):
+        super().__init__("Leg Sensors Data", device, window_bar)
+        self._settings_key = self.__class__.__name__
+        RobotSettings.set_key(self._settings_key+".isOpen", True)
+        self.make_display(device)
 
+    def make_display(self, device):
 
+        vcln_4000_sensors = device.get_vcnl_4000_set()
 
-	def make_display(self, device):
+        for sensor in vcln_4000_sensors:
+            view = DistanceSensorDataView.create_view(
+                self._display, sensor.get_distance_sensor(), self._settings_key)
 
-		vcln_4000_sensors = device.get_vcnl_4000_set()
-		
-		for sensor in vcln_4000_sensors:
-			view = DistanceSensorDataView.create_view(self._display , sensor.get_distance_sensor(), self._settings_key)
+            view = LuxSensorDataView.create_view(
+                self._display, sensor.get_lux_sensor(), self._settings_key)
 
-			view = LuxSensorDataView.create_view(self._display , sensor.get_lux_sensor(), self._settings_key)
+    def set_robot(self, robot):
+        pass
 
-
-
-	def set_robot(self, robot):
-		pass
-
-
+    def onClose(self):
+        RobotSettings.set_key(self._settings_key+".isOpen", False)
+        print("onClose")
+        
+        
 """package de.hska.lat.ant.devices.legSensors;
 
 

@@ -14,14 +14,12 @@ from RoboView.Robot.Viewer.WindowBar import WindowBar
 
 class RobotViewer:
 
-
 	def __init__(self, robot):
 		self._frame = ctk.CTk() 
 		#self._frame = tk.Tk() 
 		self._frame.title("Spiderbot")
 		
 		RobotSettings.set_file_name(robot.get_name() + ".pkl")
-		print('Set file name: {}'.format(robot.get_name()))
 		self._settings_key = self.__class__.__name__
 
 		self._x_pos = 10
@@ -35,8 +33,6 @@ class RobotViewer:
 		RobotSettings.set_key(self._settings_key+".y_pos", self._y_pos)
 		RobotSettings.set_key(self._settings_key+".x_size", self._width)
 		RobotSettings.set_key(self._settings_key+".y_size", self._height)
-		print("Set y Settings: {} y_size: {}".format(self._settings_key, self._height))
-		
 		
 		
 		ctk.set_appearance_mode("Dark")
@@ -57,7 +53,7 @@ class RobotViewer:
 		self.make_settings_menue(menu_bar)
 
 		self._frame.config(menu=menu_bar)
-
+		self.check_open_views()
 		self._frame.mainloop()
 
 		"""		
@@ -80,7 +76,7 @@ class RobotViewer:
 
 
 	def onOpenConectionWindow(self):
-		self._connectionWindow = SerialConnectionView(self._frame, 200, 200)
+		self._connectionWindow = SerialConnectionView(self._frame, self._window_bar)
 		self._connectionWindow.draw()
  
 
@@ -96,7 +92,24 @@ class RobotViewer:
 		menue.add_command(label="Save desktop", command=self.save_config)
 		menue_bar.add_cascade(label="Settings", menu=menue)
 
-
+	def check_open_views(self):
+		if RobotSettings.get_bool("SerialConnectionView.isOpen"):
+			self.onOpenConectionWindow()
+		if RobotSettings.get_bool("DataHubDataView.isOpen"):
+			self.show_data_hub_data()
+		if RobotSettings.get_bool("HeadSensorsDataView.isOpen"):
+			self.show_head_sensors_data()
+		if RobotSettings.get_bool("LegSensorsDataView.isOpen"):
+			self.show_leg_sensors_data()
+		if RobotSettings.get_bool("LegControllersDataView.isOpen"):
+			self.show_leg_controller_data()
+		if RobotSettings.get_bool("LegSensorsControlView.isOpen"):
+			self.show_leg_sensors_control()
+		if RobotSettings.get_bool("LegControllersControlView.isOpen"):
+			self.show_leg_controller_control()
+		if RobotSettings.get_bool("LegControllerSetupView.isOpen"):
+			self.show_leg_controller_setup()
+		
 """
 protected JMenu makeConnectionMenu()
 {

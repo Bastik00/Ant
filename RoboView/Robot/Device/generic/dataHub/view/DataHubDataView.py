@@ -1,11 +1,16 @@
 from RoboView.Robot.Device.Viewer.DeviceView import DeviceView
+from RoboView.Robot.Viewer.RobotSettings import RobotSettings
 
 
 class DataHubDataView(DeviceView):
-	def __init__(self, device, window_bar) :
-		super().__init__( "Main Data Hub", device, window_bar)
-		
+    def __init__(self, device, window_bar):
+        super().__init__("Main Data Hub", device, window_bar)
+        self._settings_key = self.__class__.__name__
+        RobotSettings.set_key(self._settings_key+".isOpen", True)
 
+    def onClose(self):
+        RobotSettings.set_key(self._settings_key+".isOpen", False)
+        print("onClose")
 
 
 """package de.hska.lat.robot.device.generic.dataHub.view;

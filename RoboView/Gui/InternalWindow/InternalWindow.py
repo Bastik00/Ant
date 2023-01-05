@@ -7,14 +7,13 @@ from RoboView.Gui.InternalWindow.WindowResizer import WindowResizer
 
 from RoboView.Gui.InternalWindow.WindowTitle import WindowTitle
 from RoboView.Robot.Viewer.RobotSettings import RobotSettings
-
+from RoboView.Gui.InternalWindow.ExternalWindow import ExternalWindow
 
 class InternalWindow():
 
     def __init__(self, name, window_bar):
         
         self._frame = Frame(bg="GRAY", borderwidth=1, relief='solid')
-
         self._settings_key = self.__class__.__name__
 
         self._min_width = 200
@@ -39,11 +38,9 @@ class InternalWindow():
         self._resizer = WindowResizer(self._frame, self)
         self._closer = WindowCloser(self._frame, self)
         self.resize_window()
-        self._window = None
+        self._external_window = None
         self._window_bar = window_bar
-        self._master_height = RobotSettings.get_int("AntView.y_size")
-        print("Y-Size {}".format(self._master_height))
-        
+
 
     def move(self, x_delta, y_delta):
         self._frame.lift()
@@ -51,14 +48,13 @@ class InternalWindow():
         y = self._frame.winfo_y()
         new_x = x - x_delta
         new_y = y - y_delta
-        print("new_y: {} self._frame.winfo_y(){}  other: {}".format(new_y, y, self._master_height-self._height))
         if (new_x > 0):
             self._x_pos = x - x_delta
-        if (new_y > 0 and new_y < self._master_height-self._height):
+        if (new_y > 0):
             self._y_pos = y - y_delta
+            
         self._frame.place(x=self._x_pos, y=self._y_pos)
         
-        print("self._height: {}".format(self._height))
         RobotSettings.set_key(self._settings_key+".x_pos", x)
         RobotSettings.set_key(self._settings_key+".y_pos", y)
 
@@ -71,27 +67,25 @@ class InternalWindow():
     def resize(self, width, height):
 
         if width < self._min_width:
-            width = self._min_width
+            self._width = self._min_width
+        else:
+            self._width = width
 
         if height < self._min_height:
-            height = self._min_height
+            self._height = self._min_height
+        else:
+             self._height = height
+        self._frame.place(x=self._x_pos, y=self._y_pos, width=self._width, height=self._height)
 
-        self._width = self._frame.winfo_x()
-        self._height = self._frame.winfo_y()
-
-        self._frame.place(x=self._x_pos, y=self._y_pos, width=width, height=height)
-
-        RobotSettings.set_key(self._settings_key+".x_size", width)
-        RobotSettings.set_key(self._settings_key+".y_size", height)
+        RobotSettings.set_key(self._settings_key+".x_size", self._width)
+        RobotSettings.set_key(self._settings_key+".y_size", self._height)
 
         self.resize_window()
 
     def resize_window(self):
         self._frame.lift()
         self._frame.update()
-        self._width = self._frame.winfo_width()
-        self._height = self._frame.winfo_height()
-        print("self._height: {}".format(self._height))
+        
         self._title._canvas.place(height=30, width=self._width - 27, x=0, y=0)
         self._resizer._canvas.place(
             height=22, width=22, x=self._width-24, y=self._height-24)
@@ -106,6 +100,7 @@ class InternalWindow():
     def close(self, event):
         self._frame.place_forget()
         self._frame.destroy()
+        self.on_close_device()
 
     def set_robot(self, robot):
         return True
@@ -117,14 +112,14 @@ class InternalWindow():
         RobotSettings.set_key(self._settings_key+".y_size", height)
 
     def on_closing(self):
+        RobotSettings.set_key(self._title._name+".isOpen", False)
+        print(self._title._name+".isOpen")
         self.save_bounds()
     
     def extract_window(self):
-        self._window = Toplevel(bg="GRAY", borderwidth=1, relief='solid')
-        self._window.geometry("{}x{}+{}+{}".format(self._width, self._height, self._x_pos, self._y_pos))
-        self._window.title(self._title._name)        
-        self._window_frame = Frame(self._window)
-        self._window_frame.pack()
+        self.hide_window()
+        self._external_window = ExternalWindow(self)
+        
         
     def hide_toplevel_window(self):
         #self._window.withdraw()
@@ -135,9 +130,7 @@ class InternalWindow():
         self._frame.place(x=-10000, y=-10000)
     
     def show_window(self):
-        print('showWindow{}'.format(self._title._name))
         RobotSettings.set_key(self._settings_key+".visible", True)
-        
         self._frame.place(x=self._x_pos, y=self._y_pos)
         
     def minimize_window(self):

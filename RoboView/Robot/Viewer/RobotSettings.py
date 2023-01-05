@@ -15,30 +15,21 @@ class RobotSettings:
 
     
     def get_int(key):
-
         value = 0
-
         if key in RobotSettings._settings:
             value =  RobotSettings._settings[key]
             if not isinstance(value, int):
                 value = 0
-
         return value
-
-
+    
 
     def get_bool(key):
-
         value = False
-
         if key in RobotSettings._settings:
             value =  RobotSettings._settings[key]
             if not isinstance(value, bool):
                 value = False
-
         return value
-
-
 
 
     def set_key(key, value):
@@ -61,4 +52,4 @@ class RobotSettings:
         if exists(RobotSettings._file_name): 
             with open(RobotSettings._file_name, 'rb') as f:
                 RobotSettings._settings = pickle.load(f)
-                #print(RobotSettings._settings)
+                print(RobotSettings._settings)

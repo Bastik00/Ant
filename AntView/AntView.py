@@ -2,7 +2,7 @@
 import tkinter as tk
 
 from AntView.Devices.LegSensors.LegSensorsControlView import LegSensorsControlView
-
+from RoboView.Robot.Viewer.RobotSettings import RobotSettings
 
 from AntView.Devices.LegSensors.LegSensorsDataView import LegSensorsDataView
 from AntView.Devices.LegSensors.LegSensorsSetupView import LegSensorsSetupView
@@ -19,6 +19,7 @@ class AntView(RobotViewer):
 
     def __init__(self, ant):
         super().__init__(ant)
+        
         pass
 
     def make_data_menu(self, menue_bar):
@@ -55,7 +56,8 @@ class AntView(RobotViewer):
         device = self._robot.get_data_hub()
         self._main_data_hub_data = DataHubDataView(device, self._window_bar)
         self._main_data_hub_data.draw()
-
+        
+        
     def show_head_sensors_data(self):
         print("show head Sensors data")
         device = self._robot.get_head_sensors()
@@ -99,10 +101,11 @@ class AntView(RobotViewer):
         self._leg_controller_data.draw()
 
     def show_leg_sensors_setup(self):
-        print("show leg Sensors setup")
+        print("show leg Sensors setup (not implemented)")
         # device = self._robot.get_leg_sensors()
         # self._leg_sensors_data = LegSensorsSetupView(device, self._window_bar)
         # self._leg_sensors_data.draw()
+
 
 
 """package de.hska.lat.ant;

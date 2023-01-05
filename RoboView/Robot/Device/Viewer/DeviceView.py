@@ -35,9 +35,14 @@ class DeviceView(InternalWindow):
         if self._display is not None:
             self._display.place(height=y_size - 90,
                                 width=x_size - 3, x=1, y=65)
+            
+    def on_close_device(self):
+       self.onClose()
 
     def set_robot(self, robot):
         pass
+
+
 
 
 """package de.hska.lat.robot.device.viewer;

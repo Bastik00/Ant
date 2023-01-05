@@ -13,8 +13,8 @@ class WindowTitle():
         self._name = name
         self._text = self._canvas.create_text(
             10, 15, text=self._name,  fill='WHITE', anchor='w', font=('Helvetica', '15', 'bold'))
+        self._canvas.bind("<Double-Button-1>", self.extract_window)
         self._canvas.bind("<ButtonRelease-3>", self.minimize_window)
-        self._canvas.bind("<ButtonRelease-2>", self.hide_window)
         
         
 
@@ -35,9 +35,6 @@ class WindowTitle():
         
     def extract_window(self, event):
         self._master.extract_window()
-        
-    def hide_window(self, event):
-        self._master.hide_window()
     
     def minimize_window(self, event):
         self._master.minimize_window()

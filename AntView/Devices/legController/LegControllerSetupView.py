@@ -1,11 +1,12 @@
-
 from RoboView.Robot.Device.Viewer.DeviceView import DeviceView
 from RoboView.Robot.component.actor.servo.view.ServoSetupView import ServoSetupView
-
+from RoboView.Robot.Viewer.RobotSettings import RobotSettings
 
 class LegControllerSetupView(DeviceView):
 	def __init__(self, device, window_bar) :
 		super().__init__( "Leg Controller Setup", device, window_bar)
+		self._settings_key = self.__class__.__name__
+		RobotSettings.set_key(self._settings_key+".isOpen", True)
 		self.make_display(device)
 		
 
@@ -16,6 +17,9 @@ class LegControllerSetupView(DeviceView):
 			print("servo")
 			ServoSetupView.create_view(self._display , servo, self._settings_key)
 
+	def onClose(self):
+		RobotSettings.set_key(self._settings_key+".isOpen", False)
+		print("onClose")
 
 
 """package de.hska.lat.ant.devices.legController;

@@ -1,12 +1,13 @@
-import customtkinter as ctk
-from tkinter import Frame, Canvas, PhotoImage, LEFT, BOTTOM
+
+from tkinter import Frame, Canvas, LEFT, BOTTOM
 from RoboView.Gui.InternalWindow.WindowCloser import WindowCloser
+from RoboView.Robot.Viewer.RobotSettings import RobotSettings
 
 
 class WindowBar:
     def __init__(self, root):
         self._frame = Frame(
-            master=root, width=0)
+            master=root, background='darkgrey')
         self._root = root
         self._internal_windows = []
         self._dict = {}
@@ -19,10 +20,11 @@ class WindowBar:
     def render_windowbar(self):
         for widget in self._frame.winfo_children():
             widget.destroy()
-
+        self._frame.config(width=1)
+        self._dict = {}
         for intwin in self._internal_windows:
             internal_window = Canvas(self._frame)
-            canvas = Canvas(internal_window, bg='darkblue', height=27)
+            canvas = Canvas(internal_window, background='darkblue', height=27)
             text = canvas.create_text(
                 10, 15, text=intwin._title._name, fill='WHITE', anchor='w', font=('Helvetica', '15', 'bold'))
             bbox = canvas.bbox(text)

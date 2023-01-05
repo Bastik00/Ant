@@ -1,14 +1,13 @@
-
-
 from RoboView.Robot.Device.Viewer.DeviceView import DeviceView
 from RoboView.Robot.component.sensor.generic.currentSensor.CurrentSensorDataView import CurrentSensorDataView
 from RoboView.Robot.component.actor.servo.view.ServoDataView import ServoDataView
-
+from RoboView.Robot.Viewer.RobotSettings import RobotSettings
 
 class LegControllersDataView(DeviceView):
     def __init__(self, device, window_bar):
         super().__init__("Leg Controller Data", device, window_bar)
-
+        self._settings_key = self.__class__.__name__
+        RobotSettings.set_key(self._settings_key+".isOpen", True)
         self.make_display(device)
 
     def make_display(self, device):
@@ -24,6 +23,10 @@ class LegControllersDataView(DeviceView):
         for sensor in current_sensors:
             view = CurrentSensorDataView.create_view(
                 self._display, sensor, self._settings_key)
+            
+    def onClose(self):
+        RobotSettings.set_key(self._settings_key+".isOpen", False)
+        print("onClose")
 
 
     # for sensor in vcln_4000_sensors:
