@@ -17,6 +17,7 @@ class RobotViewer:
 
 	def __init__(self, robot):
 		self._frame = ctk.CTk() 
+		#self._frame = tk.Tk() 
 		self._frame.title("Spiderbot")
 		
 		RobotSettings.set_file_name(robot.get_name() + ".pkl")
@@ -25,17 +26,18 @@ class RobotViewer:
 
 		self._x_pos = 10
 		self._y_pos = 10
-		self._x_size = 1424
-		self._y_size = 776
+		self._width = 1424
+		self._height = 776
 
-		self._frame.geometry("{}x{}+{}+{}".format(self._x_size, self._y_size, self._x_pos, self._y_pos))
-		
+		self._frame.geometry("{}x{}+{}+{}".format(self._width, self._height, self._x_pos, self._y_pos))
+		RobotSettings.load_settings()
 		RobotSettings.set_key(self._settings_key+".x_pos", self._x_pos)
 		RobotSettings.set_key(self._settings_key+".y_pos", self._y_pos)
-		RobotSettings.set_key(self._settings_key+".x_size", self._x_size)
-		RobotSettings.set_key(self._settings_key+".y_size", self._y_size)
+		RobotSettings.set_key(self._settings_key+".x_size", self._width)
+		RobotSettings.set_key(self._settings_key+".y_size", self._height)
+		print("Set y Settings: {} y_size: {}".format(self._settings_key, self._height))
 		
-		RobotSettings.load_settings()
+		
 		
 		ctk.set_appearance_mode("Dark")
 		self._robot = robot

@@ -1,11 +1,12 @@
 import customtkinter as ctk
-from tkinter import Canvas, LEFT, BOTTOM
+from tkinter import Frame, Canvas, PhotoImage, LEFT, BOTTOM
+from RoboView.Gui.InternalWindow.WindowCloser import WindowCloser
 
 
 class WindowBar:
     def __init__(self, root):
-        self._frame = ctk.CTkFrame(
-            master=root, corner_radius=0, fg_color='transparent', width=0, height=27)
+        self._frame = Frame(
+            master=root, width=0)
         self._root = root
         self._internal_windows = []
         self._dict = {}
@@ -18,17 +19,34 @@ class WindowBar:
     def render_windowbar(self):
         for widget in self._frame.winfo_children():
             widget.destroy()
+
         for intwin in self._internal_windows:
-            canvas = Canvas(self._frame, bg='darkblue', height=27)
-            canvas.create_text(
+            internal_window = Canvas(self._frame)
+            canvas = Canvas(internal_window, bg='darkblue', height=27)
+            text = canvas.create_text(
                 10, 15, text=intwin._title._name, fill='WHITE', anchor='w', font=('Helvetica', '15', 'bold'))
-            canvas.bind("<Button-1>", self.mouse_pressed)
+            bbox = canvas.bbox(text)
+            canvas.config(width=bbox[2] - bbox[0] + 40)
+            canvas.bind("<Button-1>", self.open_window)
             canvas.pack(side=LEFT)
             self._dict[canvas] = intwin
+            closer = WindowCloser(internal_window, self)
+            closer._canvas.pack(side=LEFT)
+            self._dict[closer._canvas] = intwin
+            internal_window.pack(side=LEFT, padx=(0,4))
 
-    def mouse_pressed(self, event):
+    # removes window from windowbar
+    def remove_window(self, event):
         internal_window = self._dict[event.widget]
-        internal_window.show_window()
         self._internal_windows.remove(internal_window)
         self._dict.pop(event.widget)
         self.render_windowbar()
+        return internal_window
+
+    def open_window(self, event):
+        internal_window = self.remove_window(event)
+        internal_window.show_window()
+
+    def close(self, event):
+        internal_window = self.remove_window(event)
+        internal_window.close(event)

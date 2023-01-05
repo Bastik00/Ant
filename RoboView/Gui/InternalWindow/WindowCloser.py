@@ -6,7 +6,7 @@ from tkinter import Canvas, PhotoImage
 class WindowCloser():
     def __init__(self, root, master):
         self._root = root
-        self._canvas = Canvas(root)
+        self._canvas = Canvas(root, height=26, width=26)
         self._master = master
 
         self._image = PhotoImage(file="Ant/Icons/close.png")
@@ -16,7 +16,7 @@ class WindowCloser():
         self._canvas.bind("<Leave>", self.mouse_leave)
 
     def mouse_released(self, event):
-        self._master.close()
+        self._master.close(event)
 
     def mouse_hover(self, event):
         self._image = PhotoImage(file="Ant/Icons/close_hover.png")
