@@ -1,14 +1,11 @@
 from RoboView.Robot.Device.Viewer.DeviceView import DeviceView
 from RoboView.Robot.component.sensor.generic.distance.view.DistanceSensorDataView import DistanceSensorDataView
 from RoboView.Robot.component.sensor.generic.lux.view.LuxSensorDataView import LuxSensorDataView
-from RoboView.Robot.Viewer.RobotSettings import RobotSettings
 
 
 class HeadSensorsDataView(DeviceView):
     def __init__(self, device, window_bar):
         super().__init__("Head Sensors Data", device, window_bar)
-        self._settings_key = self.__class__.__name__
-        RobotSettings.set_key(self._settings_key+".isOpen", True)
         self.make_display(device)
 
     def make_display(self, device):
@@ -22,9 +19,6 @@ class HeadSensorsDataView(DeviceView):
             view = LuxSensorDataView.create_view(
                 self._display, sensor.get_lux_sensor(),  self._settings_key)
             
-    def onClose(self):
-        RobotSettings.set_key(self._settings_key+".isOpen", False)
-        print("onClose")
 
 
 """

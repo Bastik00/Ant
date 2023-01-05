@@ -4,7 +4,6 @@ from tkinter import Label
 from tkinter.ttk import Combobox
 from RoboView.Gui.InternalWindow.InternalWindow import InternalWindow
 from RoboView.Robot.Ui.Settings.UiSettings import UiSettings
-from RoboView.Robot.Viewer.RobotSettings import RobotSettings
 
 class SerialConnectionView(InternalWindow):
 	def __init__(self, root, window_bar):
@@ -14,8 +13,6 @@ class SerialConnectionView(InternalWindow):
 		super().__init__(root, window_bar)
 		self.rename("Serial Connection")
 		self.buildView()
-		self._settings_key = self.__class__.__name__
-		RobotSettings.set_key(self._settings_key+".isOpen", True)
 
 
 	def buildView(self):
@@ -33,9 +30,6 @@ class SerialConnectionView(InternalWindow):
 
 		comboExample.place(x=20, y = 70, width = 100, height= 20)
 
-	def onClose(self):
-		RobotSettings.set_key(self._settings_key+".isOpen", False)
-		print("onClose SerialConnectionView")
 
 	def connect():
 		pass

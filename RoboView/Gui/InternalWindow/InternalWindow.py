@@ -8,6 +8,8 @@ from RoboView.Gui.InternalWindow.WindowResizer import WindowResizer
 from RoboView.Gui.InternalWindow.WindowTitle import WindowTitle
 from RoboView.Robot.Viewer.RobotSettings import RobotSettings
 from RoboView.Gui.InternalWindow.ExternalWindow import ExternalWindow
+from RoboView.Gui.InternalWindow.WindowState import State
+from RoboView.Gui.InternalWindow.WindowState import WindowState
 
 class InternalWindow():
 
@@ -15,7 +17,7 @@ class InternalWindow():
         
         self._frame = Frame(bg="GRAY", borderwidth=1, relief='solid')
         self._settings_key = self.__class__.__name__
-
+        RobotSettings.set_key(self._settings_key+".isOpen", True)
         self._min_width = 200
         self._min_height = 150
 
@@ -38,6 +40,7 @@ class InternalWindow():
         self._resizer = WindowResizer(self._frame, self)
         self._closer = WindowCloser(self._frame, self)
         self.resize_window()
+        
         self._external_window = None
         self._window_bar = window_bar
 
@@ -100,7 +103,7 @@ class InternalWindow():
     def close(self, event):
         self._frame.place_forget()
         self._frame.destroy()
-        self.on_close_device()
+        RobotSettings.set_key(self._settings_key+".isOpen", False)
 
     def set_robot(self, robot):
         return True
@@ -112,8 +115,6 @@ class InternalWindow():
         RobotSettings.set_key(self._settings_key+".y_size", height)
 
     def on_closing(self):
-        RobotSettings.set_key(self._title._name+".isOpen", False)
-        print(self._title._name+".isOpen")
         self.save_bounds()
     
     def extract_window(self):
@@ -136,8 +137,6 @@ class InternalWindow():
     def minimize_window(self):
         self.hide_window()
         self._window_bar.add_window(self)
-        
-
 
 """
 package de.hska.lat.robot.displayFrame;

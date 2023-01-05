@@ -1,13 +1,10 @@
 from RoboView.Robot.Device.Viewer.DeviceView import DeviceView
 from RoboView.Robot.component.actor.led.view.LedControlView import LedControlView
-from RoboView.Robot.Viewer.RobotSettings import RobotSettings
 
 
 class LegSensorsControlView(DeviceView):
 	def __init__(self, device, window_bar):
 		super().__init__("Leg Sensors Control", device, window_bar)
-		self._settings_key = self.__class__.__name__
-		RobotSettings.set_key(self._settings_key+".isOpen", True)
 		self.make_display(device)
 
 	def make_display(self, device):
@@ -18,9 +15,7 @@ class LegSensorsControlView(DeviceView):
 			# if view is not None:
 			# view._frame.place(x = 50, y = 50)
 
-	def onClose(self):
-		RobotSettings.set_key(self._settings_key+".isOpen", False)
-		print("onClose")
+
 
 """package de.hska.lat.ant.devices.legSensors;
 
