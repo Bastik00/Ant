@@ -43,6 +43,11 @@ class InternalWindow():
         
         self._external_window = None
         self._window_bar = window_bar
+        self._state = WindowState(self)
+        if self._state.isState(State.MINIMIZED.value):
+            self.minimize_window()
+        else:
+            self._state.state(State.INTERNAL)
 
 
     def move(self, x_delta, y_delta):
@@ -103,23 +108,15 @@ class InternalWindow():
     def close(self, event):
         self._frame.place_forget()
         self._frame.destroy()
-        RobotSettings.set_key(self._settings_key+".isOpen", False)
+        self._state.state(State.CLOSED)
 
     def set_robot(self, robot):
         return True
-
-    def save_bounds(self, x_pos, y_pos, width, height):
-        RobotSettings.set_key(self._settings_key+".x_pos", x_pos)
-        RobotSettings.set_key(self._settings_key+".y_pos", y_pos)
-        RobotSettings.set_key(self._settings_key+".x_size", width)
-        RobotSettings.set_key(self._settings_key+".y_size", height)
-
-    def on_closing(self):
-        self.save_bounds()
     
     def extract_window(self):
         self.hide_window()
         self._external_window = ExternalWindow(self)
+        self._state.state(State.EXTERNAL)
         
         
     def hide_toplevel_window(self):
@@ -127,16 +124,16 @@ class InternalWindow():
         self._window.wm_deiconify()
         
     def hide_window(self):
-        RobotSettings.set_key(self._settings_key+".visible", False)
         self._frame.place(x=-10000, y=-10000)
     
     def show_window(self):
-        RobotSettings.set_key(self._settings_key+".visible", True)
         self._frame.place(x=self._x_pos, y=self._y_pos)
+        self._state.state(State.INTERNAL)
         
     def minimize_window(self):
         self.hide_window()
         self._window_bar.add_window(self)
+        self._state.state(State.MINIMIZED)
 
 """
 package de.hska.lat.robot.displayFrame;

@@ -106,7 +106,7 @@ class AntView(RobotViewer):
         # self._leg_sensors_data = LegSensorsSetupView(device, self._window_bar)
         # self._leg_sensors_data.draw()
 
-
+        
 
 """package de.hska.lat.ant;
 
