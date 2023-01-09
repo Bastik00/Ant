@@ -17,7 +17,6 @@ class InternalWindow():
         
         self._frame = Frame(bg="GRAY", borderwidth=1, relief='solid')
         self._settings_key = self.__class__.__name__
-        RobotSettings.set_key(self._settings_key+".isOpen", True)
         self._min_width = 200
         self._min_height = 150
 

@@ -93,34 +93,29 @@ class RobotViewer:
 		menue_bar.add_cascade(label="Settings", menu=menue)
 
 	def check_open_views(self):
-   
-		if RobotSettings.get_int("SerialConnectionView.state") == State.INTERNAL.value or (
-			RobotSettings.get_int("SerialConnectionView.state") == State.MINIMIZED.value): 
+		if self.is_open_view("SerialConnectionView"):
 			self.onOpenConectionWindow()
-		if RobotSettings.get_int("DataHubDataView.state") == State.INTERNAL.value or (
-			RobotSettings.get_int("DataHubDataView.state") == State.MINIMIZED.value):
+		if self.is_open_view("DataHubDataView"): 
 			self.show_data_hub_data()
-		if RobotSettings.get_int("HeadSensorsDataView.state") == State.INTERNAL.value or (
-			RobotSettings.get_int("HeadSensorsDataView.state") == State.MINIMIZED.value):
+		if self.is_open_view("HeadSensorsDataView"): 
 			self.show_head_sensors_data()
-		if RobotSettings.get_int("LegSensorsDataView.state") == State.INTERNAL.value or (
-			RobotSettings.get_int("LegSensorsDataView.state") == State.MINIMIZED.value):
+		if self.is_open_view("LegSensorsDataView"): 
 			self.show_leg_sensors_data()
-		if RobotSettings.get_int("LegControllersDataView.state") == State.INTERNAL.value or (
-			RobotSettings.get_int("LegControllersDataView.state") == State.MINIMIZED.value):
+		if self.is_open_view("LegControllersDataView"): 
 			self.show_leg_controller_data()
-		if RobotSettings.get_int("LegSensorsControlView.state") == State.INTERNAL.value or (
-			RobotSettings.get_int("LegSensorsControlView.state") == State.MINIMIZED.value):
+		if self.is_open_view("LegSensorsControlView"): 
 			self.show_leg_sensors_control()
-		if RobotSettings.get_int("LegControllersControlView.state") == State.INTERNAL.value or (
-			RobotSettings.get_int("LegControllersControlView.state") == State.MINIMIZED.value):
+		if self.is_open_view("LegControllersControlView"): 
 			self.show_leg_controller_control()
-		if RobotSettings.get_int("LegControllerSetupView.state") == State.INTERNAL.value or (
-			RobotSettings.get_int("LegControllerSetupView.state") == State.MINIMIZED.value):
+		if self.is_open_view("LegControllerSetupView"): 
 			self.show_leg_controller_setup()
-   
-   
-		
+
+	def is_open_view(self, view_name):
+		state_value = RobotSettings.get_int("{}.state".format(view_name))
+		return state_value == State.INTERNAL.value or state_value == State.MINIMIZED.value
+
+  
+  
 """
 protected JMenu makeConnectionMenu()
 {

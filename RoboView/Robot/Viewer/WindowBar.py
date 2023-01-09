@@ -7,7 +7,7 @@ from RoboView.Robot.Viewer.RobotSettings import RobotSettings
 class WindowBar:
     def __init__(self, root):
         self._frame = Frame(
-            master=root, background='darkgrey')
+            master=root, background='WHITE')
         self._root = root
         self._internal_windows = []
         self._dict = {}
