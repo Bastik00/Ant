@@ -4,9 +4,11 @@ from RoboView.Robot.Viewer.RobotSettings import RobotSettings
 
 class State(Enum):
     CLOSED = 0
-    INTERNAL = 1
-    MINIMIZED = 2
-    EXTERNAL = 3
+    INIT_INTERNAL = 1
+    INIT_MINIMIZED = 2
+    INTERNAL = 3
+    MINIMIZED = 4
+    EXTERNAL = 5
 
 
 class WindowState:
@@ -16,10 +18,14 @@ class WindowState:
         if self._state == 0:
             self._state = State.CLOSED
         elif self._state == 1:
-            self._state = State.INTERNAL
+            self._state = State.INIT_INTERNAL
         elif self._state == 2:
-            self._state = State.MINIMIZED
+            self._state = State.INIT_MINIMIZED
         elif self._state == 3:
+            self._state = State.INTERNAL
+        elif self._state == 4:
+            self._state = State.MINIMIZED
+        elif self._state == 5:
             self._state = State.EXTERNAL
         self._value = self._state.value
         self._settings_key = internal_window._settings_key
@@ -28,8 +34,11 @@ class WindowState:
     def state(self, new_state):
         if isinstance(new_state, State):
             if self._state == State.CLOSED and new_state == State.INTERNAL or (
-                self._state == State.INTERNAL and (new_state == State.MINIMIZED or new_state == State.EXTERNAL)) or (
-                self._state == State.MINIMIZED and new_state == State.INTERNAL) or (
+                self._state == State.INIT_INTERNAL and new_state == State.INTERNAL) or (
+                self._state == State.INIT_MINIMIZED and new_state == State.MINIMIZED) or (
+                self._state == State.MINIMIZED and new_state == State.INIT_MINIMIZED) or (
+                self._state == State.INTERNAL and (new_state == State.INIT_INTERNAL or new_state == State.MINIMIZED or new_state == State.EXTERNAL)) or (
+                self._state == State.MINIMIZED and (new_state == State.INIT_MINIMIZED or new_state == State.INTERNAL)) or (
                 new_state == State.CLOSED or new_state == self._state):
                 print("{} State changed from {} to {} ".format(self._settings_key, self._state, new_state))
                 self._state = new_state

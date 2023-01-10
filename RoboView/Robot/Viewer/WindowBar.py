@@ -52,3 +52,10 @@ class WindowBar:
     def close(self, event):
         internal_window = self.remove_window(event)
         internal_window.close(event)
+
+    def removeWindow(self, window_name):
+        for window in self._internal_windows:
+            if window._settings_key == window_name:
+                print("Minimized Window {} removed".format(window))
+                self._internal_windows.remove(window)
+                self.render_windowbar()

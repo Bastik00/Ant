@@ -112,6 +112,10 @@ class RobotViewer:
 
 	def is_open_view(self, view_name):
 		state_value = RobotSettings.get_int("{}.state".format(view_name))
+		if state_value == State.INTERNAL.value:
+			RobotSettings.set_key("{}.state".format(view_name), State.INIT_INTERNAL.value)
+		elif state_value == State.MINIMIZED.value:
+			RobotSettings.set_key("{}.state".format(view_name), State.INIT_MINIMIZED.value)
 		return state_value == State.INTERNAL.value or state_value == State.MINIMIZED.value
 
   

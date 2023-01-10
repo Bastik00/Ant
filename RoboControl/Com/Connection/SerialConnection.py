@@ -19,7 +19,7 @@ class SerialConnection(Connection):
 		for p in ports:
 			print(p[1])
                 
-		port = "COM9"
+		port = "COM10"
 
 		self._serial_stream = serial.Serial(port, 115200)
 

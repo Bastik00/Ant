@@ -32,7 +32,6 @@ class InternalWindow():
             self._height = self._min_height
 
         self._frame.place(height=self._height, width=self._width, x=self._x_pos, y=self._y_pos)
-        
 
         self._title = WindowTitle(self._frame, self, name)
         
@@ -43,10 +42,9 @@ class InternalWindow():
         self._external_window = None
         self._window_bar = window_bar
         self._state = WindowState(self)
-        if self._state.isState(State.MINIMIZED.value):
-            self.minimize_window()
-        else:
-            self._state.state(State.INTERNAL)
+        
+        self.handle_window_state()
+        
 
 
     def move(self, x_delta, y_delta):
@@ -108,6 +106,7 @@ class InternalWindow():
         self._frame.place_forget()
         self._frame.destroy()
         self._state.state(State.CLOSED)
+        del self
 
     def set_robot(self, robot):
         return True
@@ -133,6 +132,16 @@ class InternalWindow():
         self.hide_window()
         self._window_bar.add_window(self)
         self._state.state(State.MINIMIZED)
+        
+    def handle_window_state(self):
+        if self._state.isState(State.INIT_MINIMIZED.value):
+            self.minimize_window()
+        else:
+            if self._state.isState(State.MINIMIZED.value):
+                self._window_bar.removeWindow(self._settings_key)
+            self._state.state(State.INTERNAL)
+        
+        
 
 """
 package de.hska.lat.robot.displayFrame;
