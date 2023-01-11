@@ -10,7 +10,7 @@ class ComponentView:
         self._settings_key = settings_key+"."+self.__class__.__name__+"."+name
 
         self._frame = Frame(
-            master=root, bg="darkgrey")
+            master=root, bg="grey15")
         self._master = root
         self._width = width
         self._height = height
@@ -21,22 +21,24 @@ class ComponentView:
         x_pos = RobotSettings.get_int(self._settings_key+".x_pos")
         y_pos = RobotSettings.get_int(self._settings_key+".y_pos")
         self._frame.place(x=x_pos, y=y_pos)
+        self._frame.bind("<Button-1>", self.mouse_pressed_frame)
+        self._frame.bind("<ButtonRelease-1>", self.mouse_released_frame)
+        self._frame.bind("<Leave>", self.mouse_released_frame)
 
-        self._display_name = RobotSettings.get_bool(self._settings_key+".display_name")
-        #self._display_name = True
+        self._display_name = RobotSettings.get_bool(
+            self._settings_key+".display_name")
 
-        self._data_frame.bind("<Button-1>", self.mouse_pressed)
-        self._data_frame.bind("<ButtonRelease-1>", self.mouse_released)
-        # self._data_frame.bind("<Leave>", self.mouse_released)
+        self._data_frame.bind("<Button-1>", self.mouse_pressed_data_frame)
+        self._data_frame.bind("<ButtonRelease-1>",
+                              self.mouse_released_data_frame)
+        self._data_frame.bind("<Leave>", self.mouse_released_data_frame)
 
         self._data_frame.bind("<ButtonRelease-3>", self.show_context_menue)
 
         self.build_context_menue()
         self._name = name
         self._name_label = ctk.CTkLabel(
-            self._frame, text=self._name, font=("Courier", 12), fg_color='darkblue', corner_radius=3)
-        self._name_label.bind("<Button-1>", self.mouse_pressed)
-        self._name_label.bind("<ButtonRelease-1>", self.mouse_released)
+            self._frame, text=self._name, font=("Courier", 12), fg_color='darkgrey', text_color='black', corner_radius=3)
         self.draw()
 
     def build_context_menue(self):
@@ -50,6 +52,13 @@ class ComponentView:
     def mouse_pressed(self, event):
         self._origin_x = event.x
         self._origin_y = event.y
+
+    def mouse_pressed_frame(self, event):
+        self.mouse_pressed(event)
+        self._frame.bind("<Motion>", self.mouse_motion)
+
+    def mouse_pressed_data_frame(self, event):
+        self.mouse_pressed(event)
         self._data_frame.bind("<Motion>", self.mouse_motion)
 
     def mouse_motion(self, event):
@@ -57,13 +66,15 @@ class ComponentView:
         y = self._frame.winfo_y()
         x = x - self._origin_x + event.x
         y = y - self._origin_y + event.y
-
         self._frame.place(x=x, y=y)
 
         RobotSettings.set_key(self._settings_key+".x_pos", x)
         RobotSettings.set_key(self._settings_key+".y_pos", y)
 
-    def mouse_released(self, event):
+    def mouse_released_frame(self, event):
+        self._frame.unbind("<Motion>")
+
+    def mouse_released_data_frame(self, event):
         self._data_frame.unbind("<Motion>")
 
     def show_context_menue(self, event):
@@ -77,10 +88,7 @@ class ComponentView:
         pass
 
     def on_display_name(self):
-        if (self._display_name):
-            self._display_name = False
-        else:
-            self._display_name = True
+        self._display_name = not self._display_name
 
         RobotSettings.set_key(self._settings_key +
                               ".display_name", self._display_name)
@@ -90,17 +98,17 @@ class ComponentView:
 
         height = self._height
         width = self._width
-        y = 2
+        
         if self._display_name:
             self._name_label.place(x=2, y=2, width=self._width, height=18)
-            y += 19
+            self._frame.place(width=width + 6, height=height + 27)
+            self._data_frame.place(
+                x=2, y=19, width=self._width, height=self._height)
         else:
             self._name_label.place(x=2, y=-20, width=self._width, height=18)
-            pass
-
-        self._frame.place(width=width + 6, height=height + y + 5)
-        self._data_frame.place(
-            x=2, y=y-2, width=self._width, height=self._height)
+            self._frame.place(width=width + 6, height=height + 6)
+            self._data_frame.place(
+                x=2, y=2, width=self._width, height=self._height)
 
 
 """package de.hska.lat.robot.component.view;

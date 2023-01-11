@@ -38,24 +38,25 @@ class WindowBar:
             internal_window.pack(side=LEFT, padx=(0,4))
 
     # removes window from windowbar
-    def remove_window(self, event):
+    def remove_window_by_widget(self, event):
         internal_window = self._dict[event.widget]
         self._internal_windows.remove(internal_window)
-        self._dict.pop(event.widget)
         self.render_windowbar()
         return internal_window
-
-    def open_window(self, event):
-        internal_window = self.remove_window(event)
-        internal_window.show_window()
-
-    def close(self, event):
-        internal_window = self.remove_window(event)
-        internal_window.close(event)
-
-    def removeWindow(self, window_name):
+    
+    def remove_window_by_name(self, window_name):
         for window in self._internal_windows:
             if window._settings_key == window_name:
                 print("Minimized Window {} removed".format(window))
                 self._internal_windows.remove(window)
                 self.render_windowbar()
+
+    def open_window(self, event):
+        internal_window = self.remove_window_by_widget(event)
+        internal_window.show_window()
+
+    def close(self, event):
+        internal_window = self.remove_window_by_widget(event)
+        internal_window.close(event)
+
+    

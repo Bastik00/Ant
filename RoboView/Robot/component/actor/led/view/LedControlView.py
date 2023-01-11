@@ -8,37 +8,39 @@ from RoboView.Robot.component.view.MissingComponentView import MissingComponentV
 
 class LedControlView(ActorControlView):
 
-	def __init__(self, root, led, settings_key):
-		super().__init__(root, led, settings_key, 110, 50)
+    def __init__(self, root, led, settings_key):
+        super().__init__(root, led, settings_key, 110, 50)
 
+        self._position_slider = Scale(
+            self._data_frame, from_=0, to=100, orient=HORIZONTAL, command=self.change_brightness)
+        self._position_slider.place(x=5, y=5,  width=100, height=40)
+        self._position_slider.bind("<Button-1>", self.mouse_pressed_sensor)
+        self._position_slider.bind("<ButtonRelease-1>", self.mouse_released_value_label)
+        self._position_slider.bind("<Leave>", self.mouse_released_value_label)
 
-		self._position_slider = Scale(self._data_frame, from_=0, to=100, orient=HORIZONTAL,command=self.change_brightness)
-		self._position_slider.place(x = 5, y = 5,  width=100, height=40)
+    # self._state = BooleanVar()
+    # self._on_button = Checkbutton(self._data_frame, text="on", variable=self._state, command=self.changeStatus)
+    # self._on_button.place(x = 5, y = 20,  width=40, height=20)
 
+    def create_view(root, led, settings_key):
 
-	#	self._state = BooleanVar()
-	#	self._on_button = Checkbutton(self._data_frame, text="on", variable=self._state, command=self.changeStatus)
-	#	self._on_button.place(x = 5, y = 20,  width=40, height=20)
-	
+        if led is not None:
+            view = LedControlView(root, led, settings_key)
+        else:
+            view = MissingComponentView(Led.__name__)
 
+        return view
 
+    def change_brightness(self, brightness):
+        value = float(brightness)/100
+        self._actor.remote_set_brightness(value)
 
+    def mouse_pressed_sensor(self, event):
+        self.mouse_pressed(event)
+        self._position_slider.bind("<Motion>", self.mouse_motion)
 
-
-	def create_view(root, led, settings_key):
-
-		if led is not None:
-			view = LedControlView(root, led, settings_key)
-		else: 
-			view = MissingComponentView(Led.__name__)
-
-		return view
-
-
-	def change_brightness(self, brightness):
-		value = float(brightness)/100
-		self._actor.remote_set_brightness(value)
-
+    def mouse_released_value_label(self, event):
+        self._position_slider.unbind("<Motion>")
 
 
 """package de.hska.lat.robot.component.actor.led.view;

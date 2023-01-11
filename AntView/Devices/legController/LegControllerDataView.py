@@ -11,7 +11,6 @@ class LegControllersDataView(DeviceView):
 
         servos = device.get_servo_set()
         for servo in servos:
-            print("servo")
             view = ServoDataView.create_view(
                 self._display, servo, self._settings_key)
 

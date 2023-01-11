@@ -138,7 +138,7 @@ class InternalWindow():
             self.minimize_window()
         else:
             if self._state.isState(State.MINIMIZED.value):
-                self._window_bar.removeWindow(self._settings_key)
+                self._window_bar.remove_window_by_name(self._settings_key)
             self._state.state(State.INTERNAL)
         
         
