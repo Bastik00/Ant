@@ -3,6 +3,7 @@
 from tkinter import Frame, Button, Toplevel
 import customtkinter as ctk
 from RoboView.Gui.InternalWindow.WindowCloser import WindowCloser
+from RoboView.Gui.InternalWindow.WindowMinimizer import WindowMinimizer
 from RoboView.Gui.InternalWindow.WindowResizer import WindowResizer
 
 from RoboView.Gui.InternalWindow.WindowTitle import WindowTitle
@@ -36,7 +37,9 @@ class InternalWindow():
         self._title = WindowTitle(self._frame, self, name)
         
         self._resizer = WindowResizer(self._frame, self)
-        self._closer = WindowCloser(self._frame, self)
+        self._closeIcon = WindowCloser(self._frame, self)
+        self._minimizeIcon = WindowMinimizer(self._frame, self)
+        #self._externIcon = WindowExterner(self._frame, self)
         self.resize_window()
         
         self._external_window = None
@@ -94,7 +97,8 @@ class InternalWindow():
         self._title._canvas.place(height=30, width=self._width - 27, x=0, y=0)
         self._resizer._canvas.place(
             height=22, width=22, x=self._width-24, y=self._height-24)
-        self._closer._canvas.place(x=self._width-30, y=0)
+        self._closeIcon._canvas.place(x=self._width-30, y=0)
+        self._minimizeIcon._canvas.place(x=self._width-60, y=0)
         
 
     def set_min_dimension(self, new_min_x, new_min_y):
@@ -114,7 +118,7 @@ class InternalWindow():
     def extract_window(self):
         self.hide_window()
         self._external_window = ExternalWindow(self)
-        self._state.state(State.EXTERNAL)
+        self._state.state(State.CLOSED) # ToDO: State: EXTERNAL
         
         
     def hide_toplevel_window(self):

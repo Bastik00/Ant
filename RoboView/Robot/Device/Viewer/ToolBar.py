@@ -5,7 +5,7 @@ from RoboView.Robot.Device.Viewer.Spinbox import Spinbox
 
 class ToolBar:
     def __init__(self, root, device):
-        self._frame = ctk.CTkFrame(master=root, corner_radius=0)
+        self._frame = ctk.CTkFrame(master=root, corner_radius=0, fg_color='grey15', border_width=1)
         self._root = root
 
         self._device = device
@@ -22,7 +22,7 @@ class ToolBar:
     def build_view(self):
 
         self._period = Spinbox(self._frame, step_size=10,
-                               height=20, corner_radius=5, fg_color='#565b5e')
+                               height=20, corner_radius=5, fg_color='grey60') #fg_color='#565b5e'
         self._period.set(1000)
         self._period.pack(side=LEFT)
 
@@ -84,7 +84,7 @@ class ToolBar:
     def start_stream(self):
         print(self._aquisators.current())
         index = self._aquisators.current() + 1
-        # self._device.remote_start_stream(index, int(int(self._period.get())/10))
+        self._device.remote_start_stream(index, int(int(self._period.get())/10))
 
     def stop_stream(self):
         index = self._aquisators.current() + 1

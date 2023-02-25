@@ -35,7 +35,7 @@ class RobotViewer:
 		RobotSettings.set_key(self._settings_key+".y_size", self._height)
 		
 		
-		ctk.set_appearance_mode("Dark")
+		ctk.set_appearance_mode("light")
 		self._robot = robot
 		self._window_bar = WindowBar(self._frame)
 		
