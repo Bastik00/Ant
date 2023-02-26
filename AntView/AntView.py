@@ -53,7 +53,7 @@ class AntView(RobotViewer):
      
 # data view
     def show_data_hub_data(self):
-        if not RobotSettings.get_int("{}.state".format("DataHubDataView")) == State.INTERNAL.value:
+        if not (RobotSettings.get_int("{}.state".format("DataHubDataView")) == State.INTERNAL.value) and not(RobotSettings.get_int("{}.state".format("DataHubDataView")) == State.EXTERNAL.value):
             print("show Data hub data")
             device = self._robot.get_data_hub()
             self._main_data_hub_data = DataHubDataView(device, self._window_bar)
@@ -63,7 +63,7 @@ class AntView(RobotViewer):
         
         
     def show_head_sensors_data(self):
-        if not RobotSettings.get_int("{}.state".format("HeadSensorsDataView")) == State.INTERNAL.value:
+        if not RobotSettings.get_int("{}.state".format("HeadSensorsDataView")) == State.INTERNAL.value and not(RobotSettings.get_int("{}.state".format("HeadSensorsDataView")) == State.EXTERNAL.value):
             print("show head Sensors data")
             device = self._robot.get_head_sensors()
             self._head_sensors_data = HeadSensorsDataView(device, self._window_bar)
@@ -73,7 +73,7 @@ class AntView(RobotViewer):
 
 # leg data
     def show_leg_sensors_data(self):
-        if not RobotSettings.get_int("{}.state".format("LegSensorsDataView")) == State.INTERNAL.value:
+        if not RobotSettings.get_int("{}.state".format("LegSensorsDataView")) == State.INTERNAL.value and not(RobotSettings.get_int("{}.state".format("LegSensorsDataView")) == State.EXTERNAL.value):
             print("show leg Sensors data")
             device = self._robot.get_leg_sensors()
             self._leg_sensors_data = LegSensorsDataView(device, self._window_bar)
@@ -82,7 +82,7 @@ class AntView(RobotViewer):
             print("{} already open".format("LegSensorsDataView"))
 
     def show_leg_controller_data(self):
-        if not RobotSettings.get_int("{}.state".format("LegControllersDataView")) == State.INTERNAL.value:
+        if not RobotSettings.get_int("{}.state".format("LegControllersDataView")) == State.INTERNAL.value and not(RobotSettings.get_int("{}.state".format("LegControllersDataView")) == State.EXTERNAL.value):
             print("show leg controller data")
             device = self._robot.get_leg_controller()
             self._leg_controller_data = LegControllersDataView(device, self._window_bar)
@@ -92,7 +92,7 @@ class AntView(RobotViewer):
 
 # leg control
     def show_leg_sensors_control(self):
-        if not RobotSettings.get_int("{}.state".format("LegSensorsControlView")) == State.INTERNAL.value:
+        if not RobotSettings.get_int("{}.state".format("LegSensorsControlView")) == State.INTERNAL.value and not(RobotSettings.get_int("{}.state".format("LegSensorsControlView")) == State.EXTERNAL.value):
             print("show leg sensors control")
             device = self._robot.get_leg_sensors()
             self._leg_controller_data = LegSensorsControlView(device, self._window_bar)
@@ -101,7 +101,7 @@ class AntView(RobotViewer):
             print("{} already open".format("LegSensorsControlView"))
 
     def show_leg_controller_control(self):
-        if not RobotSettings.get_int("{}.state".format("LegControllersControlView")) == State.INTERNAL.value:
+        if not RobotSettings.get_int("{}.state".format("LegControllersControlView")) == State.INTERNAL.value and not(RobotSettings.get_int("{}.state".format("LegControllersControlView")) == State.EXTERNAL.value):
             print("show leg controller control")
             device = self._robot.get_leg_controller()
             self._leg_controller_data = LegControllersControlView(device, self._window_bar)
@@ -111,7 +111,7 @@ class AntView(RobotViewer):
 
 # setup View
     def show_leg_controller_setup(self):
-        if not RobotSettings.get_int("{}.state".format("LegControllerSetupView")) == State.INTERNAL.value:
+        if not RobotSettings.get_int("{}.state".format("LegControllerSetupView")) == State.INTERNAL.value and not(RobotSettings.get_int("{}.state".format("LegControllerSetupView")) == State.EXTERNAL.value):
             print("show leg controller setup")
             device = self._robot.get_leg_controller()
             self._leg_controller_data = LegControllerSetupView(device, self._window_bar)
@@ -120,7 +120,7 @@ class AntView(RobotViewer):
             print("{} already open".format("LegControllerSetupView"))
 
     def show_leg_sensors_setup(self):
-        if not RobotSettings.get_int("{}.state".format("LegSensorsSetupView")) == State.INTERNAL.value:
+        if not RobotSettings.get_int("{}.state".format("LegSensorsSetupView")) == State.INTERNAL.value and not(RobotSettings.get_int("{}.state".format("LegSensorsSetupView")) == State.EXTERNAL.value):
             print("show leg Sensors setup (not implemented)")
             # device = self._robot.get_leg_sensors()
             # self._leg_sensors_data = LegSensorsSetupView(device, self._window_bar)

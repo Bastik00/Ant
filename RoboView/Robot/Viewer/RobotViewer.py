@@ -16,7 +16,6 @@ class RobotViewer:
 
 	def __init__(self, robot):
 		self._frame = ctk.CTk() 
-		#self._frame = tk.Tk() 
 		self._frame.title("Spiderbot")
 		
 		RobotSettings.set_file_name(robot.get_name() + ".pkl")
@@ -63,7 +62,7 @@ class RobotViewer:
 			sleep(1)
 		"""
 
-		#self.load_config()
+		self.load_config()
 		pass
 
 
@@ -116,6 +115,8 @@ class RobotViewer:
 			RobotSettings.set_key("{}.state".format(view_name), State.INIT_INTERNAL.value)
 		elif state_value == State.MINIMIZED.value:
 			RobotSettings.set_key("{}.state".format(view_name), State.INIT_MINIMIZED.value)
+		elif state_value == State.EXTERNAL.value:
+			RobotSettings.set_key("{}.state".format(view_name), State.CLOSED.value)
 		return state_value == State.INTERNAL.value or state_value == State.MINIMIZED.value
 
   

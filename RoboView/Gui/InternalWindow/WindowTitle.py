@@ -23,6 +23,7 @@ class WindowTitle():
         self._canvas.itemconfig(self._text, text=self._name)
 
     def mouse_pressed(self, event):
+        self._root.lift()
         self._origin_x = event.x
         self._origin_y = event.y
         self._canvas.bind("<Motion>", self.mouse_motion)

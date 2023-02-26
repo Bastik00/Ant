@@ -4,11 +4,14 @@ from tkinter import Frame, Button, Toplevel
 import customtkinter as ctk
 from RoboView.Gui.InternalWindow.WindowCloser import WindowCloser
 from RoboView.Gui.InternalWindow.WindowMinimizer import WindowMinimizer
+from RoboView.Gui.InternalWindow.WindowExternalIcon import WindowExternalIcon
 from RoboView.Gui.InternalWindow.WindowResizer import WindowResizer
 
 from RoboView.Gui.InternalWindow.WindowTitle import WindowTitle
 from RoboView.Robot.Viewer.RobotSettings import RobotSettings
-from RoboView.Gui.InternalWindow.ExternalWindow import ExternalWindow
+
+from RoboView.Gui.ExternalWindow.ExternalWindow import ExternalWindow
+
 from RoboView.Gui.InternalWindow.WindowState import State
 from RoboView.Gui.InternalWindow.WindowState import WindowState
 
@@ -16,7 +19,7 @@ class InternalWindow():
 
     def __init__(self, name, window_bar):
         
-        self._frame = Frame(bg="GRAY", borderwidth=1, relief='solid')
+        self._frame = Frame(bg="gray", borderwidth=1, relief='solid')
         self._settings_key = self.__class__.__name__
         self._min_width = 200
         self._min_height = 150
@@ -39,7 +42,7 @@ class InternalWindow():
         self._resizer = WindowResizer(self._frame, self)
         self._closeIcon = WindowCloser(self._frame, self)
         self._minimizeIcon = WindowMinimizer(self._frame, self)
-        #self._externIcon = WindowExterner(self._frame, self)
+        self._externalIcon = WindowExternalIcon(self._frame, self)
         self.resize_window()
         
         self._external_window = None
@@ -98,7 +101,8 @@ class InternalWindow():
         self._resizer._canvas.place(
             height=22, width=22, x=self._width-24, y=self._height-24)
         self._closeIcon._canvas.place(x=self._width-30, y=0)
-        self._minimizeIcon._canvas.place(x=self._width-60, y=0)
+        self._externalIcon._canvas.place(x=self._width-60, y=0)
+        self._minimizeIcon._canvas.place(x=self._width-90, y=0)
         
 
     def set_min_dimension(self, new_min_x, new_min_y):
@@ -117,13 +121,9 @@ class InternalWindow():
     
     def extract_window(self):
         self.hide_window()
-        self._external_window = ExternalWindow(self)
-        self._state.state(State.CLOSED) # ToDO: State: EXTERNAL
+        self._external_window = ExternalWindow(self, self._device)
+        self._state.state(State.EXTERNAL) 
         
-        
-    def hide_toplevel_window(self):
-        #self._window.withdraw()
-        self._window.wm_deiconify()
         
     def hide_window(self):
         self._frame.place(x=-10000, y=-10000)

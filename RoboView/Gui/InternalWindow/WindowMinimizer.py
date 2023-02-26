@@ -14,10 +14,10 @@ class WindowMinimizer():
         self._canvas.bind("<Leave>", self.mouse_leave)
 
     def mouse_released(self, event):
-        self._master.close(event)
+        self._master.minimize_window()
 
     def mouse_hover(self, event):
-        self._image = PhotoImage(file="Ant/Icons/close_hover.png")
+        self._image = PhotoImage(file="Ant/Icons/minimize_hover.png")
         self._canvas.create_image(0, 0, image=self._image, anchor='nw')
 
     def mouse_leave(self, event):
